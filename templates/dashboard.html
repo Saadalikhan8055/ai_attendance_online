@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Register Student</h5>
+                <p class="card-text">Add new students to the attendance system by uploading a photo.</p>
+                <a class="btn btn-primary" href="{{ url_for('register_student_route') }}">Go to Registration</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Start Attendance Capture</h5>
+                <p class="card-text">Begin a webcam session to mark attendance for detected faces.</p>
+                <a class="btn btn-danger" href="{{ url_for('start_capture') }}">Start Capture</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Export Data</h5>
+                <p class="card-text">Download a CSV file of all recorded attendance data.</p>
+                <a class="btn btn-secondary" href="{{ url_for('export_csv') }}">Export CSV</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm mt-4 fade-in">
+    <div class="card-header">
+        <h4>Registered Students</h4>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Student ID</th>
+                    {% if current_user.username == "admin" %}
+                    <th>Actions</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for s in student_records %}
+                <tr>
+                    <td>{{ s.name }}</td>
+                    <td>{{ s.student_id }}</td>
+                    {% if current_user.username == "admin" %}
+                    <td>
+                        <form action="{{ url_for('delete_student', student_id=s.id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this student and all their attendance records?');">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card shadow-sm mt-4 fade-in">
+    <div class="card-header">
+        <h4>Attendance Records</h4>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Student ID</th>
+                    <th>Timestamp (UTC)</th>
+                    {% if current_user.username == "admin" %}
+                    <th>Actions</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for r in attendance_records %}
+                <tr>
+                    <td>{{ r.name }}</td>
+                    <td>{{ r.student_id }}</td>
+                    <td>{{ r.timestamp }}</td>
+                    {% if current_user.username == "admin" %}
+                    <td>
+                        <form action="{{ url_for('delete_attendance', record_id=r.id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this record?');">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

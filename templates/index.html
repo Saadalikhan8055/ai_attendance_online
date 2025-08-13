@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3 fade-in">
+    <div class="container-fluid py-5 text-center">
+        <h1 class="display-5 fw-bold">Welcome to the AI Attendance System</h1>
+        <p class="fs-4">
+            A complete solution for managing student attendance using real-time face recognition.
+            Register students and mark attendance with a simple webcam capture.
+        </p>
+        <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg mt-3">Log In</a>
+    </div>
+</div>
+
+<div class="row fade-in mt-4">
+    <div class="col-md-4">
+        <h2>Features</h2>
+        <p>
+            This system offers a simple, secure way to track attendance.
+            No more manual roll calls—just let the AI do the work.
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>How It Works</h2>
+        <p>
+            Students are registered by uploading a photo. When attendance capture is active,
+            the system identifies faces and logs attendance automatically.
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Dashboard</h2>
+        <p>
+            The dashboard provides a protected space to view attendance records,
+            filter by date, and export data for your reports.
+        </p>
+    </div>
+</div>
+{% endblock %}

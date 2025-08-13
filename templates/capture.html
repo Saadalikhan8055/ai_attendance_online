@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto text-center fade-in">
+        <h2 class="mb-4">Live Attendance Capture</h2>
+        <p>Press the button below to capture and mark attendance.</p>
+        <img src="{{ url_for('video_feed') }}" width="100%" class="shadow-sm rounded mb-4" />
+        
+        <button id="capture-btn" class="btn btn-danger mb-3">Capture</button>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary mb-3">Stop Capture & Go to Dashboard</a>
+    </div>
+    <div class="col-md-4 fade-in">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                Recent Captures
+            </div>
+            <div class="card-body">
+                <ul id="attendance-log" class="list-group list-group-flush">
+                    <!-- Log entries will be added here by JavaScript -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function fetchAttendanceLog() {
+    fetch("{{ url_for('get_attendance_log') }}")
+        .then(response => response.json())
+        .then(data => {
+            const logList = document.getElementById('attendance-log');
+            logList.innerHTML = ''; // Clear old entries
+            data.forEach(entry => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item';
+                li.textContent = `${entry.name} captured at ${entry.timestamp}`;
+                logList.prepend(li); // Add new entry to the top
+            });
+        })
+        .catch(error => console.error('Error fetching attendance log:', error));
+}
+
+document.getElementById('capture-btn').addEventListener('click', () => {
+    fetch("{{ url_for('capture_single_frame') }}", {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        fetchAttendanceLog(); // Refresh the log after capture
+    })
+    .catch(error => console.error('Error capturing frame:', error));
+});
+
+// Fetch the log every 3 seconds
+setInterval(fetchAttendanceLog, 3000);
+
+// Initial fetch when the page loads
+document.addEventListener('DOMContentLoaded', fetchAttendanceLog);
+</script>
+{% endblock %}

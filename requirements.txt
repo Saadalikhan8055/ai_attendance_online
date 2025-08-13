@@ -1,0 +1,8 @@
+flask
+flask-login
+sqlalchemy
+opencv-python
+face_recognition
+pandas
+gunicorn
+python-dotenv
