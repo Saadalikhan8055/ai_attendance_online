@@ -11,7 +11,7 @@ git init
 git add .
 git commit -m "Initial commit: AI Attendance App"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/ai_attendance_online.git
+git remote add origin https://github.com/saadalikhan8055/ai_attendance_system.git
 git push -u origin main
 ```
 
