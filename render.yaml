@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: ai-attendance-app
+    env: python
+    plan: free
+    repo: https://github.com/YOUR_USERNAME/ai_attendance_online
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ai-attendance-db
+          property: connectionString
+
+  - type: pserv
+    name: ai-attendance-db
+    plan: free
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: Allow all

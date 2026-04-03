@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="reports-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-header text-center mb-5">
+                    <h2 class="display-5 fw-bold text-primary">Attendance Reports</h2>
+                    <p class="lead text-muted">Generate and analyze attendance data</p>
+                    <div class="divider"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="filter-card p-4">
+                    <h5 class="fw-bold mb-4">Filter Options</h5>
+                    <form method="get" id="reportForm" class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-600">Date Range</label>
+                            <input type="date" name="start_date" class="form-control input-animated" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-600">To Date</label>
+                            <input type="date" name="end_date" class="form-control input-animated" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-600">&nbsp;</label>
+                            <button type="submit" class="btn btn-primary w-100 btn-glow">
+                                <i class="fas fa-filter me-2"></i>Generate Report
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="row mb-5 g-4">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon text-primary">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h6 class="text-muted small">Total Students</h6>
+                    <h3 class="fw-bold">{{ total_students }}</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon text-success">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h6 class="text-muted small">Present Today</h6>
+                    <h3 class="fw-bold">{{ present_today }}</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon text-warning">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h6 class="text-muted small">Absent Today</h6>
+                    <h3 class="fw-bold">{{ absent_today }}</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon text-info">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h6 class="text-muted small">Attendance %</h6>
+                    <h3 class="fw-bold">{{ attendance_percentage }}%</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Table -->
+        <div class="data-card">
+            <div class="card-header-custom">
+                <h4 class="fw-bold mb-0">Attendance Summary by Student</h4>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-user me-2"></i>Student</th>
+                            <th><i class="fas fa-id-card me-2"></i>ID</th>
+                            <th><i class="fas fa-calendar me-2"></i>Days Present</th>
+                            <th><i class="fas fa-chart-pie me-2"></i>Percentage</th>
+                            <th><i class="fas fa-info-circle me-2"></i>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row-animation">
+                            <td colspan="5" class="text-center text-muted py-4">
+                                <p>Select date range and click "Generate Report" to see data</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.reports-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.filter-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: cardSlideUp 0.8s ease-out;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: cardSlideUp 0.8s ease-out backwards;
+    transition: all 0.3s ease;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0s; }
+.stat-card:nth-child(2) { animation-delay: 0.1s; }
+.stat-card:nth-child(3) { animation-delay: 0.2s; }
+.stat-card:nth-child(4) { animation-delay: 0.3s; }
+
+.stat-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="analytics-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-header text-center mb-5">
+                    <h2 class="display-5 fw-bold text-primary">Analytics & Insights</h2>
+                    <p class="lead text-muted">Real-time attendance statistics and trends</p>
+                    <div class="divider"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-3">
+                <div class="kpi-card blue">
+                    <i class="fas fa-users"></i>
+                    <h6>Total Enrollment</h6>
+                    <h2>{{ total_students }}</h2>
+                    <p class="trend">↑ Active Students</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="kpi-card green">
+                    <i class="fas fa-smile"></i>
+                    <h6>Average Attendance</h6>
+                    <h2>{{ avg_attendance }}%</h2>
+                    <p class="trend">This Month</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="kpi-card orange">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h6>At Risk Students</h6>
+                    <h2>{{ at_risk_count }}</h2>
+                    <p class="trend">&lt; 75% attendance</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="kpi-card purple">
+                    <i class="fas fa-calendar-check"></i>
+                    <h6>Total Records</h6>
+                    <h2>{{ total_records }}</h2>
+                    <p class="trend">All Time</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-6">
+                <div class="chart-card">
+                    <h5 class="fw-bold mb-4">
+                        <i class="fas fa-chart-line me-2"></i>Attendance Trend
+                    </h5>
+                    <canvas id="attendanceTrendChart"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="chart-card">
+                    <h5 class="fw-bold mb-4">
+                        <i class="fas fa-chart-pie me-2"></i>Attendance Distribution
+                    </h5>
+                    <canvas id="attendanceDistributionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Performers & Needs Attention -->
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="data-card">
+                    <div class="card-header-custom">
+                        <h5 class="fw-bold mb-0">
+                            <i class="fas fa-star me-2 text-warning"></i>Top Performers
+                        </h5>
+                    </div>
+                    <div class="performer-list">
+                        <div class="performer-item">
+                            <div class="performer-avatar">
+                                <i class="fas fa-thumbs-up"></i>
+                            </div>
+                            <div class="performer-info">
+                                <h6>100% Attendance</h6>
+                                <p class="text-muted small">Students with perfect attendance</p>
+                            </div>
+                            <div class="performer-count">
+                                <span class="badge bg-success">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="data-card">
+                    <div class="card-header-custom">
+                        <h5 class="fw-bold mb-0">
+                            <i class="fas fa-exclamation-circle me-2 text-danger"></i>Needs Attention
+                        </h5>
+                    </div>
+                    <div class="performer-list">
+                        <div class="performer-item">
+                            <div class="performer-avatar danger">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div class="performer-info">
+                                <h6>Low Attendance</h6>
+                                <p class="text-muted small">Below 75% attendance threshold</p>
+                            </div>
+                            <div class="performer-count">
+                                <span class="badge bg-danger">{{ at_risk_count }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+    // Attendance Trend Chart
+    const trendCtx = document.getElementById('attendanceTrendChart').getContext('2d');
+    new Chart(trendCtx, {
+        type: 'line',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [{
+                label: 'Attendance %',
+                data: [85, 88, 92, 89],
+                borderColor: '#667eea',
+                backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                borderWidth: 3,
+                tension: 0.4,
+                fill: true,
+                pointBackgroundColor: '#667eea',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: { font: { size: 13 }, color: '#666' }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: { color: '#999', font: { size: 12 } },
+                    grid: { color: 'rgba(0,0,0,0.05)' }
+                },
+                x: {
+                    ticks: { color: '#999', font: { size: 12 } },
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+
+    // Distribution Pie Chart
+    const distCtx = document.getElementById('attendanceDistributionChart').getContext('2d');
+    new Chart(distCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Present', 'Absent'],
+            datasets: [{
+                data: [85, 15],
+                backgroundColor: ['#10b981', '#ef4444'],
+                borderColor: '#fff',
+                borderWidth: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: { font: { size: 13 }, color: '#666', padding: 20 }
+                }
+            }
+        }
+    });
+</script>
+
+<style>
+.analytics-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.kpi-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: cardSlideUp 0.8s ease-out backwards;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    opacity: 0.1;
+}
+
+.kpi-card.blue { border-left: 4px solid #667eea; }
+.kpi-card.green { border-left: 4px solid #10b981; }
+.kpi-card.orange { border-left: 4px solid #f59e0b; }
+.kpi-card.purple { border-left: 4px solid #8b5cf6; }
+
+.kpi-card:nth-child(1) { animation-delay: 0s; }
+.kpi-card:nth-child(2) { animation-delay: 0.1s; }
+.kpi-card:nth-child(3) { animation-delay: 0.2s; }
+.kpi-card:nth-child(4) { animation-delay: 0.3s; }
+
+.kpi-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.kpi-card i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.kpi-card h2 {
+    font-size: 2.5rem;
+    margin: 0.5rem 0;
+}
+
+.kpi-card .trend {
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0.5rem 0 0 0;
+    font-weight: 500;
+}
+
+.chart-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: cardSlideUp 0.8s ease-out;
+}
+
+.performer-list {
+    padding: 1rem 0;
+}
+
+.performer-item {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.performer-item:hover {
+    background: #f9fafb;
+}
+
+.performer-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.performer-avatar.danger {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.performer-info {
+    flex: 1;
+}
+
+.performer-info h6 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.performer-count .badge {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+}
+</style>
+{% endblock %}

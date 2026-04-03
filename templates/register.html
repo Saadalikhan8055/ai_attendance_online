@@ -1,18 +1,180 @@
 {% extends "base.html" %}
 {% block content %}
-<form method="post" enctype="multipart/form-data">
-  <div class="mb-3">
-    <label class="form-label">Name</label>
-    <input class="form-control" name="name" required/>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Student ID</label>
-    <input class="form-control" name="student_id" required/>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Photo</label>
-    <input class="form-control" type="file" name="photo" accept="image/*" required/>
-  </div>
-  <button class="btn btn-success" type="submit">Register</button>
-</form>
+<section class="register-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="register-card">
+                    <div class="register-header text-center mb-5">
+                        <div class="register-icon mb-4">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h2 class="fw-bold text-primary">Register New Student</h2>
+                        <p class="text-muted">Add a new student to the attendance system</p>
+                    </div>
+
+                    <form method="post" enctype="multipart/form-data" class="register-form">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label fw-600 mb-2">
+                                        <i class="fas fa-user text-primary me-2"></i>Full Name
+                                    </label>
+                                    <input class="form-control form-control-lg input-animated" 
+                                           name="name" 
+                                           placeholder="Enter student name"
+                                           required/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label fw-600 mb-2">
+                                        <i class="fas fa-id-card text-primary me-2"></i>Student ID
+                                    </label>
+                                    <input class="form-control form-control-lg input-animated" 
+                                           name="student_id" 
+                                           placeholder="Enter student ID"
+                                           required/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <label class="form-label fw-600 mb-3">
+                                <i class="fas fa-camera text-primary me-2"></i>Student Photo
+                            </label>
+                            <div class="photo-upload-wrapper" id="photoUploadWrapper">
+                                <div class="photo-preview" id="photoPreview">
+                                    <i class="fas fa-image"></i>
+                                    <p class="mt-3">Click to upload or drag and drop</p>
+                                    <small class="text-muted">PNG, JPG, GIF up to 10MB</small>
+                                </div>
+                                <input type="file" 
+                                       id="photoInput" 
+                                       name="photo" 
+                                       accept="image/*" 
+                                       required
+                                       style="display: none;"/>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-5">
+                            <button class="btn btn-success btn-lg btn-glow" type="submit">
+                                <i class="fas fa-check me-2"></i>Register Student
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.register-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.register-card {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    animation: cardSlideUp 0.8s ease-out;
+    border-top: 4px solid #667eea;
+}
+
+.register-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 2.5rem;
+    color: white;
+    animation: float 3s ease-in-out infinite;
+}
+
+.input-animated {
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+.input-animated:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    background: white;
+    transform: translateY(-3px);
+}
+
+.photo-upload-wrapper {
+    border: 2px dashed #667eea;
+    border-radius: 15px;
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #f8f9ff;
+}
+
+.photo-upload-wrapper:hover {
+    border-color: #764ba2;
+    background: #f0f2ff;
+    transform: translateY(-2px);
+}
+
+.photo-preview {
+    color: #667eea;
+}
+
+.photo-preview i {
+    font-size: 3rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+</style>
+
+<script>
+const photoUpload = document.getElementById('photoUploadWrapper');
+const photoInput = document.getElementById('photoInput');
+const photoPreview = document.getElementById('photoPreview');
+
+photoUpload.addEventListener('click', () => photoInput.click());
+photoUpload.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    photoUpload.style.borderColor = '#764ba2';
+    photoUpload.style.background = '#f0f2ff';
+});
+photoUpload.addEventListener('dragleave', () => {
+    photoUpload.style.borderColor = '#667eea';
+    photoUpload.style.background = '#f8f9ff';
+});
+photoUpload.addEventListener('drop', (e) => {
+    e.preventDefault();
+    photoInput.files = e.dataTransfer.files;
+    handleFileSelect();
+});
+photoInput.addEventListener('change', handleFileSelect);
+
+function handleFileSelect() {
+    if (photoInput.files && photoInput.files[0]) {
+        const file = photoInput.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            photoPreview.innerHTML = `<img src="${e.target.result}" style="max-height: 200px; border-radius: 10px;">`;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+</script>
 {% endblock %}

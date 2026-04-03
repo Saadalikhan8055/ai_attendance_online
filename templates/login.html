@@ -1,14 +1,114 @@
 {% extends "base.html" %}
 {% block content %}
-<form method="post">
-  <div class="mb-3">
-    <label class="form-label">Username</label>
-    <input class="form-control" name="username"/>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Password</label>
-    <input class="form-control" type="password" name="password"/>
-  </div>
-  <button class="btn btn-primary" type="submit">Login</button>
-</form>
+<div class="login-wrapper">
+    <div class="container-fluid h-100 d-flex align-items-center">
+        <div class="row w-100">
+            <div class="col-lg-5 mx-auto">
+                <div class="login-card">
+                    <div class="login-header text-center mb-5">
+                        <div class="login-icon mb-4">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </div>
+                        <h2 class="fw-bold text-white">Welcome Back</h2>
+                        <p class="text-white-50">Sign in to manage attendance</p>
+                    </div>
+
+                    <form method="post" class="login-form">
+                        <div class="form-group mb-4">
+                            <label class="form-label text-white fw-600 mb-2">
+                                <i class="fas fa-user me-2 text-primary"></i>Username
+                            </label>
+                            <input class="form-control form-control-lg input-animated" 
+                                   name="username" 
+                                   placeholder="Enter your username"
+                                   required/>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label class="form-label text-white fw-600 mb-2">
+                                <i class="fas fa-lock me-2 text-primary"></i>Password
+                            </label>
+                            <input class="form-control form-control-lg input-animated" 
+                                   type="password" 
+                                   name="password"
+                                   placeholder="Enter your password"
+                                   required/>
+                        </div>
+
+                        <button class="btn btn-primary btn-lg w-100 btn-glow mt-3 mb-3" type="submit">
+                            <i class="fas fa-arrow-right me-2"></i>Sign In
+                        </button>
+                    </form>
+
+                    <div class="text-center text-white-50 small">
+                        <p>AI Attendance System © 2026</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.login-wrapper {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.1), transparent 50%);
+    pointer-events: none;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: cardSlideUp 0.8s ease-out;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.login-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 2rem;
+    color: white;
+    animation: float 3s ease-in-out infinite;
+}
+
+.input-animated {
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+    background: #f8f9fa;
+}
+
+.input-animated:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    background: white;
+    transform: translateY(-2px);
+}
+</style>
 {% endblock %}

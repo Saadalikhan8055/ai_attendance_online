@@ -1,0 +1,300 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="documentation-section py-5">
+    <div class="container">
+        <!-- Header -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="section-header text-center mb-5">
+                    <h2 class="display-5 fw-bold text-primary">Documentation</h2>
+                    <p class="lead text-muted">Complete guide to using AI Attendance System</p>
+                    <div class="divider"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Navigation -->
+            <div class="col-lg-3 mb-4 mb-lg-0">
+                <div class="doc-sidebar">
+                    <h5 class="fw-bold mb-3">Table of Contents</h5>
+                    <nav class="doc-nav">
+                        <a href="#getting-started" class="doc-link active" onclick="scrollToSection(this)">
+                            <i class="fas fa-rocket me-2"></i>Getting Started
+                        </a>
+                        <a href="#user-registration" class="doc-link" onclick="scrollToSection(this)">
+                            <i class="fas fa-user-plus me-2"></i>User Registration
+                        </a>
+                        <a href="#student-enrollment" class="doc-link" onclick="scrollToSection(this)">
+                            <i class="fas fa-graduation-cap me-2"></i>Student Enrollment
+                        </a>
+                        <a href="#face-capture" class="doc-link" onclick="scrollToSection(this)">
+                            <i class="fas fa-camera me-2"></i>Face Capture
+                        </a>
+                        <a href="#attendance-marks" class="doc-link" onclick="scrollToSection(this)">
+                            <i class="fas fa-check-circle me-2"></i>Marking Attendance
+                        </a>
+                        <a href="#reports-analytics" class="doc-link" onclick="scrollToSection(this)">
+                            <i class="fas fa-chart-bar me-2"></i>Reports & Analytics
+                        </a>
+                        <a href="#troubleshooting" class="doc-link" onclick="scrollToSection(this)">
+                            <i class="fas fa-wrench me-2"></i>Troubleshooting
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <!-- Getting Started -->
+                <div class="doc-section" id="getting-started">
+                    <h3 class="fw-bold mb-3">
+                        <i class="fas fa-rocket text-primary me-2"></i>Getting Started
+                    </h3>
+                    <div class="doc-card">
+                        <p>Welcome to AI Attendance! This guide will help you get up and running quickly.</p>
+                        <p><strong>Prerequisites:</strong></p>
+                        <ul>
+                            <li>Modern web browser (Chrome, Firefox, Safari, Edge)</li>
+                            <li>Webcam for face enrollment and capture</li>
+                            <li>Stable internet connection</li>
+                            <li>Admin account credentials</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- User Registration -->
+                <div class="doc-section" id="user-registration">
+                    <h3 class="fw-bold mb-3">
+                        <i class="fas fa-user-plus text-primary me-2"></i>User Registration
+                    </h3>
+                    <div class="doc-card">
+                        <p><strong>Step 1:</strong> Visit the login page and click "Create Account"</p>
+                        <p><strong>Step 2:</strong> Enter your username and password</p>
+                        <p><strong>Step 3:</strong> Click "Register" to create your account</p>
+                        <p><strong>Step 4:</strong> Use your credentials to login</p>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Tip:</strong> Use a strong password with at least 8 characters for security.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Student Enrollment -->
+                <div class="doc-section" id="student-enrollment">
+                    <h3 class="fw-bold mb-3">
+                        <i class="fas fa-graduation-cap text-primary me-2"></i>Student Enrollment
+                    </h3>
+                    <div class="doc-card">
+                        <p><strong>Step 1:</strong> Go to Dashboard → Register Student</p>
+                        <p><strong>Step 2:</strong> Enter student details (Name, Student ID, Email)</p>
+                        <p><strong>Step 3:</strong> Drag and drop a clear photo or click to upload</p>
+                        <p><strong>Step 4:</strong> The system will process the face data automatically</p>
+                        <p><strong>Step 5:</strong> Click "Register" to save the student</p>
+                        <div class="alert alert-warning">
+                            <i class="fas fa-lightbulb me-2"></i>
+                            <strong>Best Practices:</strong>
+                            <ul>
+                                <li>Use clear, front-facing photos</li>
+                                <li>Ensure good lighting in photo</li>
+                                <li>Face should occupy 50-70% of image</li>
+                                <li>No glasses or excessive makeup</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Face Capture -->
+                <div class="doc-section" id="face-capture">
+                    <h3 class="fw-bold mb-3">
+                        <i class="fas fa-camera text-primary me-2"></i>Face Capture & Detection
+                    </h3>
+                    <div class="doc-card">
+                        <p><strong>Step 1:</strong> Go to Dashboard → Start Capture</p>
+                        <p><strong>Step 2:</strong> Position yourself in front of the webcam</p>
+                        <p><strong>Step 3:</strong> The system will detect your face automatically</p>
+                        <p><strong>Step 4:</strong> Wait for the "Attendance Marked" confirmation</p>
+                        <p><strong>Step 5:</strong> Check the detection log for results</p>
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>Success:</strong> Green indicator means face was successfully recognized.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marking Attendance -->
+                <div class="doc-section" id="attendance-marks">
+                    <h3 class="fw-bold mb-3">
+                        <i class="fas fa-check-circle text-primary me-2"></i>Marking Attendance
+                    </h3>
+                    <div class="doc-card">
+                        <p>Attendance is marked automatically when a face is recognized during capture session.</p>
+                        <p><strong>Real-time Detection Log:</strong></p>
+                        <ul>
+                            <li>Shows live feed from webcam</li>
+                            <li>Updates detection results every 2 seconds</li>
+                            <li>Displays recognized student names</li>
+                            <li>Shows timestamps for each detection</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Reports & Analytics -->
+                <div class="doc-section" id="reports-analytics">
+                    <h3 class="fw-bold mb-3">
+                        <i class="fas fa-chart-bar text-primary me-2"></i>Reports & Analytics
+                    </h3>
+                    <div class="doc-card">
+                        <p><strong>Access Reports:</strong></p>
+                        <ul>
+                            <li><strong>Analytics:</strong> Dashboard with KPIs and trends</li>
+                            <li><strong>Reports:</strong> Generate filtered attendance reports</li>
+                            <li><strong>Export:</strong> Download data as CSV files</li>
+                        </ul>
+                        <p><strong>Available Metrics:</strong></p>
+                        <ul>
+                            <li>Total enrollment</li>
+                            <li>Average attendance percentage</li>
+                            <li>At-risk students (low attendance)</li>
+                            <li>Daily attendance breakdown</li>
+                            <li>Student-wise attendance history</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Troubleshooting -->
+                <div class="doc-section" id="troubleshooting">
+                    <h3 class="fw-bold mb-3">
+                        <i class="fas fa-wrench text-primary me-2"></i>Troubleshooting
+                    </h3>
+                    <div class="doc-card">
+                        <div class="faq-item">
+                            <h5 class="fw-bold text-danger">Face not being detected?</h5>
+                            <p>✓ Check lighting - ensure your face is well lit</p>
+                            <p>✓ Move closer to webcam</p>
+                            <p>✓ Remove glasses or obstructions</p>
+                            <p>✓ Ensure webcam is clean and working</p>
+                        </div>
+                        <hr>
+                        <div class="faq-item">
+                            <h5 class="fw-bold text-danger">Wrong attendance record shown?</h5>
+                            <p>✓ System may need face re-enrollment</p>
+                            <p>✓ Check student photo quality</p>
+                            <p>✓ Update enrollment with newer photo</p>
+                        </div>
+                        <hr>
+                        <div class="faq-item">
+                            <h5 class="fw-bold text-danger">Webcam permission error?</h5>
+                            <p>✓ Allow camera access in browser settings</p>
+                            <p>✓ Check browser permissions</p>
+                            <p>✓ Try different browser if issue persists</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.documentation-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.doc-sidebar {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 100px;
+}
+
+.doc-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.doc-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.doc-link:hover {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    border-left-color: #667eea;
+    transform: translateX(5px);
+}
+
+.doc-link.active {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+    color: #667eea;
+    border-left-color: #667eea;
+    font-weight: 600;
+}
+
+.doc-section {
+    margin-bottom: 3rem;
+    scroll-margin-top: 120px;
+}
+
+.doc-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: slideInUp 0.6s ease-out;
+}
+
+.doc-card p {
+    margin: 1rem 0;
+    line-height: 1.8;
+    color: #555;
+}
+
+.doc-card ul {
+    margin: 1rem 0 1rem 1.5rem;
+}
+
+.doc-card li {
+    margin: 0.5rem 0;
+    color: #666;
+}
+
+.faq-item {
+    margin: 1.5rem 0;
+}
+
+.faq-item h5 {
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .doc-sidebar {
+        position: static;
+        margin-bottom: 2rem;
+    }
+}
+</style>
+
+<script>
+function scrollToSection(element) {
+    const href = element.getAttribute('href');
+    const target = document.querySelector(href);
+    if (target) {
+        element.parentElement.querySelectorAll('.doc-link').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+        target.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+</script>
+{% endblock %}

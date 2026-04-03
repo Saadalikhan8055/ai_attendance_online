@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="admin-section py-5">
+    <div class="container">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="display-6 fw-bold text-primary mb-2">Manage Users</h2>
+                        <p class="text-muted">Create and manage system administrator accounts</p>
+                    </div>
+                    <a href="{{ url_for('admin_panel') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Admin
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create New User Form -->
+        <div class="row mb-5">
+            <div class="col-lg-6">
+                <div class="admin-card">
+                    <h5 class="fw-bold mb-4">
+                        <i class="fas fa-user-plus me-2 text-primary"></i>Create New User
+                    </h5>
+                    <form method="POST" action="{{ url_for('admin_users') }}">
+                        <input type="hidden" name="action" value="add" />
+                        <div class="mb-3">
+                            <label class="form-label fw-600">Username</label>
+                            <input type="text" class="form-control input-animated" name="username" placeholder="Enter username" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-600">Password</label>
+                            <input type="password" class="form-control input-animated" name="password" placeholder="Enter password" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-glow w-100">
+                            <i class="fas fa-save me-2"></i>Create User
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- User Statistics -->
+            <div class="col-lg-6">
+                <div class="admin-card bg-light border-left">
+                    <h5 class="fw-bold mb-4">
+                        <i class="fas fa-chart-bar me-2 text-info"></i>System Users
+                    </h5>
+                    <div class="stat-item">
+                        <span>Total Users:</span>
+                        <strong>{{ users|length }}</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span>Administrators:</span>
+                        <strong>1</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span>Staff Members:</span>
+                        <strong>{{ users|length - 1 }}</strong>
+                    </div>
+                    <div class="alert alert-info mt-4 mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <small>Only users with valid credentials can access the system.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="row">
+            <div class="col-12">
+                <div class="admin-card">
+                    <h5 class="fw-bold mb-4">Registered Users</h5>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <i class="fas fa-user me-2"></i>Username
+                                    </th>
+                                    <th>
+                                        <i class="fas fa-shield-alt me-2"></i>Role
+                                    </th>
+                                    <th>
+                                        <i class="fas fa-calendar me-2"></i>Type
+                                    </th>
+                                    <th class="text-center">
+                                        <i class="fas fa-cog me-2"></i>Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td class="fw-600">
+                                        <i class="fas fa-user-circle me-2"></i>{{ user.username }}
+                                    </td>
+                                    <td>
+                                        {% if user.username == "admin" %}
+                                            <span class="badge bg-danger">Administrator</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">Staff</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-muted small">System Account</td>
+                                    <td class="text-center">
+                                        {% if user.username != "admin" %}
+                                        <form method="POST" action="{{ url_for('admin_users') }}" style="display: inline;" onsubmit="return confirm('Delete this user account?');">
+                                            <input type="hidden" name="action" value="delete" />
+                                            <input type="hidden" name="username" value="{{ user.username }}" />
+                                            <button type="submit" class="btn btn-sm btn-danger btn-icon">
+                                                <i class="fas fa-trash me-1"></i>Delete
+                                            </button>
+                                        </form>
+                                        {% else %}
+                                        <span class="badge bg-light text-dark">
+                                            <i class="fas fa-lock me-1"></i>Protected
+                                        </span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.admin-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.admin-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: slideInUp 0.6s ease-out;
+}
+
+.admin-card.bg-light {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+    border-left: 4px solid #667eea;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table thead tr {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+    border-bottom: 2px solid #ddd;
+}
+
+.admin-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+}
+
+.admin-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.admin-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.btn-icon {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+}
+</style>
+{% endblock %}

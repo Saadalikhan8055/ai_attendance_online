@@ -1,61 +1,438 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row">
-    <div class="col-md-8 mx-auto text-center fade-in">
-        <h2 class="mb-4">Live Attendance Capture</h2>
-        <p>Press the button below to capture and mark attendance.</p>
-        <img src="{{ url_for('video_feed') }}" width="100%" class="shadow-sm rounded mb-4" />
-        
-        <button id="capture-btn" class="btn btn-danger mb-3">Capture</button>
-        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary mb-3">Stop Capture & Go to Dashboard</a>
-    </div>
-    <div class="col-md-4 fade-in">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                Recent Captures
+<section class="capture-section py-5">
+    <div class="container-fluid">
+        <div class="row g-4">
+            <!-- Live Camera Feed -->
+            <div class="col-lg-8">
+                <div class="capture-card">
+                    <div class="capture-header">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h3 class="fw-bold mb-0">Live Attendance Capture</h3>
+                                <p class="text-white-50 small mt-1">Automatic face detection in progress</p>
+                            </div>
+                            <div class="capture-status">
+                                <span class="badge bg-success pulse">● Live Scanning</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-wrapper">
+                        <img id="video-feed" src="{{ url_for('video_feed') }}" class="video-feed" />
+                        <div class="loading-placeholder" id="loading-placeholder">
+                            <div class="spinner-border text-light" role="status">
+                                <span class="visually-hidden">Loading camera...</span>
+                            </div>
+                            <p class="text-white mt-3">Loading camera feed...</p>
+                        </div>
+                    </div>
+                    <div class="capture-controls d-flex gap-2 justify-content-center mt-4">
+                        <div class="alert alert-info w-100" style="margin-bottom: 0;">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <small><strong>Auto-Detection Active:</strong> System is continuously scanning for faces. No action needed.</small>
+                        </div>
+                    </div>
+                    <div class="capture-controls d-flex gap-2 justify-content-center mt-3">
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary btn-lg">
+                            <i class="fas fa-stop me-2"></i>End Session
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <ul id="attendance-log" class="list-group list-group-flush">
-                    <!-- Log entries will be added here by JavaScript -->
-                </ul>
+
+            <!-- Detection Log -->
+            <div class="col-lg-4">
+                <div class="log-card">
+                    <div class="log-header">
+                        <h4 class="fw-bold mb-0"><i class="fas fa-list me-2"></i>Detection Log</h4>
+                    </div>
+                    <div class="log-body">
+                        <ul id="attendance-log" class="log-list">
+                            <li class="log-item text-center text-muted py-3">
+                                <small>No detections yet. Start capturing...</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<style>
+.capture-section {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.capture-card, .log-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    animation: cardSlideUp 0.8s ease-out;
+}
+
+.capture-header, .log-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem;
+}
+
+.capture-status .badge {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    animation: pulse 2s infinite;
+}
+
+.video-wrapper {
+    padding: 1rem;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1.5rem;
+    position: relative;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-feed {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    max-height: 600px;
+}
+
+.loading-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 1;
+}
+
+.loading-placeholder .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.3em;
+}
+
+.video-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(76, 175, 80, 0.1) 0%, transparent 50%, rgba(76, 175, 80, 0.1) 100%);
+    pointer-events: none;
+    animation: scanLine 2s ease-in-out infinite;
+    border-radius: 8px;
+}
+
+@keyframes scanLine {
+    0% {
+        transform: translateY(-100%);
+    }
+    50% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.log-body {
+    padding: 1.5rem;
+}
+
+.log-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.log-item {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-left: 4px solid #10b981;
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+    animation: slideInLeft 0.3s ease-out;
+    transition: all 0.3s ease;
+}
+
+.log-item:hover {
+    background: #f0f9ff;
+    transform: translateX(5px);
+    border-left-color: #667eea;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.log-item .text-dark {
+    color: #1f2937 !important;
+    font-size: 0.95rem;
+}
+
+.log-item .text-success {
+    color: #10b981 !important;
+}
+
+.badge.bg-success-light {
+    background-color: #d1fae5 !important;
+}
+
+.success-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+    z-index: 9999;
+    animation: slideInRight 0.3s ease-out;
+    min-width: 300px;
+}
+
+.success-notification i {
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
+}
+
+.success-notification-text {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.success-notification-subtext {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    margin-top: 0.25rem;
+}
+
+.capture-cooldown-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(102, 126, 234, 0.95);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    z-index: 999;
+    display: none;
+    animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInLeftSmall {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+</style>
 
 <script>
+// Global state management
+let isCapturing = false;
+let captureInterval = null;
+let lastCapturedEntries = {};
+let captureInCooldown = false;
+let cooldownTime = 3000; // 3 seconds cooldown
+
+// Show success notification
+function showSuccessNotification(studentName, time) {
+    // Remove existing notification if any
+    const existing = document.querySelector('.success-notification');
+    if (existing) existing.remove();
+
+    const notification = document.createElement('div');
+    notification.className = 'success-notification';
+    notification.innerHTML = `
+        <div class="success-notification-text">
+            <i class="fas fa-check-circle"></i>Successfully Captured
+        </div>
+        <div class="success-notification-subtext">
+            ${studentName} • ${time}
+        </div>
+    `;
+    document.body.appendChild(notification);
+
+    // Auto-remove after 3 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideInLeft 0.3s ease-out reverse';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// Show cooldown indicator
+function showCooldownIndicator() {
+    const indicator = document.querySelector('.capture-cooldown-indicator');
+    if (!indicator) {
+        const div = document.createElement('div');
+        div.className = 'capture-cooldown-indicator';
+        div.innerHTML = '⏸️ Cooldown... Capturing in <span id="cooldown-timer">3</span>s';
+        document.body.appendChild(div);
+    }
+    
+    const timer = document.getElementById('cooldown-timer');
+    let remaining = 3;
+    const interval = setInterval(() => {
+        remaining--;
+        timer.textContent = remaining;
+        if (remaining <= 0) {
+            clearInterval(interval);
+            const ind = document.querySelector('.capture-cooldown-indicator');
+            if (ind) ind.remove();
+        }
+    }, 1000);
+}
+
+// Auto-detect faces
+function autoCaptureFace() {
+    // Skip if in cooldown or already capturing
+    if (captureInCooldown || isCapturing) return;
+
+    isCapturing = true;
+
+    fetch("{{ url_for('capture_single_frame') }}", { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            isCapturing = false;
+            // Successfully captured, trigger cooldown
+            fetchAttendanceLog();
+            captureInCooldown = true;
+            showCooldownIndicator();
+            
+            // Resume capturing after cooldown
+            setTimeout(() => {
+                captureInCooldown = false;
+            }, cooldownTime);
+        })
+        .catch(error => {
+            isCapturing = false;
+            console.error('Error:', error);
+        });
+}
+
 function fetchAttendanceLog() {
     fetch("{{ url_for('get_attendance_log') }}")
         .then(response => response.json())
         .then(data => {
             const logList = document.getElementById('attendance-log');
-            logList.innerHTML = ''; // Clear old entries
-            data.forEach(entry => {
-                const li = document.createElement('li');
-                li.className = 'list-group-item';
-                li.textContent = `${entry.name} captured at ${entry.timestamp}`;
-                logList.prepend(li); // Add new entry to the top
-            });
+            
+            if (data.length === 0) {
+                logList.innerHTML = '<li class="log-item text-center text-muted py-3"><small>Scanning for faces...</small></li>';
+            } else {
+                // Check for newly added entries
+                data.forEach(entry => {
+                    const entryKey = `${entry.name}-${entry.timestamp}`;
+                    
+                    // If this is a new entry, show success notification
+                    if (!lastCapturedEntries[entryKey]) {
+                        lastCapturedEntries[entryKey] = true;
+                        showSuccessNotification(entry.name, entry.timestamp);
+                    }
+                });
+
+                // Update the log display
+                logList.innerHTML = '';
+                data.forEach(entry => {
+                    const li = document.createElement('li');
+                    li.className = 'log-item';
+                    const timeDisplay = entry.timestamp || 'Just now';
+                    li.innerHTML = `
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="fw-600 text-dark">${entry.name}</div>
+                                <small class="text-muted">ID: ${entry.student_id || 'N/A'}</small>
+                            </div>
+                            <small class="text-success fw-bold">${timeDisplay}</small>
+                        </div>
+                        <div class="mt-2">
+                            <span class="badge bg-success-light text-success">✓ Marked</span>
+                        </div>
+                    `;
+                    logList.prepend(li);
+                });
+            }
         })
-        .catch(error => console.error('Error fetching attendance log:', error));
+        .catch(error => console.error('Error:', error));
 }
 
-document.getElementById('capture-btn').addEventListener('click', () => {
-    fetch("{{ url_for('capture_single_frame') }}", {
-        method: 'POST'
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert(data.message);
-        fetchAttendanceLog(); // Refresh the log after capture
-    })
-    .catch(error => console.error('Error capturing frame:', error));
+// Hide loading placeholder when video loads
+document.getElementById('video-feed').addEventListener('load', function() {
+    const loader = document.getElementById('loading-placeholder');
+    if (loader) {
+        loader.style.display = 'none';
+    }
 });
 
-// Fetch the log every 3 seconds
-setInterval(fetchAttendanceLog, 3000);
+// Show error if video fails to load
+document.getElementById('video-feed').addEventListener('error', function() {
+    const loader = document.getElementById('loading-placeholder');
+    if (loader) {
+        loader.innerHTML = '<div class="alert alert-warning"><i class="fas fa-exclamation-triangle me-2"></i>Camera feed unavailable. Check camera permissions.</div>';
+    }
+});
 
-// Initial fetch when the page loads
-document.addEventListener('DOMContentLoaded', fetchAttendanceLog);
+// Auto-capture every 500ms for face detection (but cooldown prevents spamming)
+captureInterval = setInterval(autoCaptureFace, 500);
+
+// Fetch log every 2 seconds for real-time updates
+setInterval(fetchAttendanceLog, 2000);
+
+// Initial fetch on page load
+document.addEventListener('DOMContentLoaded', () => {
+    fetchAttendanceLog();
+    // First capture after 1 second
+    setTimeout(autoCaptureFace, 1000);
+});
 </script>
 {% endblock %}

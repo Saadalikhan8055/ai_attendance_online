@@ -1,0 +1,281 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="admin-section py-5">
+    <div class="container">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="display-6 fw-bold text-primary mb-2">System Settings</h2>
+                        <p class="text-muted">Configure application settings and preferences</p>
+                    </div>
+                    <a href="{{ url_for('admin_panel') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Admin
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- General Settings -->
+            <div class="col-lg-6">
+                <div class="admin-card">
+                    <h5 class="fw-bold mb-4">
+                        <i class="fas fa-cog me-2 text-primary"></i>General Settings
+                    </h5>
+                    <div class="setting-item">
+                        <label class="setting-label">Application Name</label>
+                        <input type="text" class="form-control input-animated" value="AI Attendance System" disabled />
+                        <small class="text-muted">Version: 1.0.0</small>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Environment</label>
+                        <select class="form-select input-animated" disabled>
+                            <option selected>Development</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Debug Mode</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="debugToggle" checked disabled />
+                            <label class="form-check-label" for="debugToggle">
+                                Enabled
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Settings -->
+            <div class="col-lg-6">
+                <div class="admin-card">
+                    <h5 class="fw-bold mb-4">
+                        <i class="fas fa-envelope me-2 text-info"></i>Email Configuration
+                    </h5>
+                    <div class="alert alert-info mb-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Configure email settings in your <code>.env</code> file
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">SMTP Server</label>
+                        <code>MAIL_SERVER=smtp.gmail.com</code>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">SMTP Port</label>
+                        <code>MAIL_PORT=587</code>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Status</label>
+                        <span class="badge bg-warning">Not Configured</span>
+                        <small class="text-muted d-block mt-2">Configure email in .env to enable notifications</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Database Settings -->
+            <div class="col-lg-6">
+                <div class="admin-card">
+                    <h5 class="fw-bold mb-4">
+                        <i class="fas fa-database me-2 text-success"></i>Database Settings
+                    </h5>
+                    <div class="setting-item">
+                        <label class="setting-label">Database Type</label>
+                        <span class="badge bg-success">SQLite</span>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Connection Status</label>
+                        <span class="badge bg-success"><i class="fas fa-circle text-success"></i> Connected</span>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Database Actions</label>
+                        <button class="btn btn-sm btn-outline-warning" disabled>
+                            <i class="fas fa-backup me-1"></i>Backup Database
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Face Recognition Settings -->
+            <div class="col-lg-6">
+                <div class="admin-card">
+                    <h5 class="fw-bold mb-4">
+                        <i class="fas fa-face-smile me-2 text-warning"></i>Face Recognition
+                    </h5>
+                    <div class="setting-item">
+                        <label class="setting-label">Recognition Engine</label>
+                        <span class="badge bg-info">Face Recognition (dlib)</span>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Accuracy Threshold</label>
+                        <select class="form-select input-animated" disabled>
+                            <option selected>99% (High)</option>
+                            <option>95% (Standard)</option>
+                            <option>90% (Low)</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Liveness Detection</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="livenessToggle" checked disabled />
+                            <label class="form-check-label" for="livenessToggle">
+                                Enabled (Anti-Spoofing)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Settings -->
+            <div class="col-lg-6">
+                <div class="admin-card">
+                    <h5 class="fw-bold mb-4">
+                        <i class="fas fa-shield-alt me-2 text-danger"></i>Security Settings
+                    </h5>
+                    <div class="setting-item">
+                        <label class="setting-label">HTTPS Enabled</label>
+                        <span class="badge bg-danger">Not Configured</span>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Session Timeout</label>
+                        <input type="number" class="form-control input-animated" value="3600" disabled />
+                        <small class="text-muted">Seconds (1 hour)</small>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Change Admin Password</label>
+                        <button class="btn btn-sm btn-outline-danger" disabled>
+                            <i class="fas fa-key me-1"></i>Change Password
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backup & Maintenance -->
+            <div class="col-lg-6">
+                <div class="admin-card">
+                    <h5 class="fw-bold mb-4">
+                        <i class="fas fa-tools me-2 text-secondary"></i>Maintenance
+                    </h5>
+                    <div class="setting-item">
+                        <label class="setting-label">System Logs</label>
+                        <button class="btn btn-sm btn-outline-info" disabled>
+                            <i class="fas fa-file-alt me-1"></i>View Logs
+                        </button>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Cache Management</label>
+                        <button class="btn btn-sm btn-outline-warning" disabled>
+                            <i class="fas fa-trash me-1"></i>Clear Cache
+                        </button>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">Last System Check</label>
+                        <span class="badge bg-success">Healthy</span>
+                        <small class="text-muted d-block mt-2">All systems operational</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="admin-card bg-light">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-question-circle me-2"></i>Configuration Help
+                    </h5>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="help-item">
+                                <h6>Email Setup (.env)</h6>
+                                <code class="d-block p-2 bg-white rounded mt-2" style="font-size: 0.85rem;">
+                                    MAIL_SERVER=smtp.gmail.com<br>
+                                    MAIL_PORT=587<br>
+                                    MAIL_USERNAME=your-email@gmail.com<br>
+                                    MAIL_PASSWORD=your-app-password<br>
+                                    ADMIN_EMAIL=admin@aiattendance.com
+                                </code>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="help-item">
+                                <h6>Environment Variables</h6>
+                                <code class="d-block p-2 bg-white rounded mt-2" style="font-size: 0.85rem;">
+                                    FLASK_ENV=production<br>
+                                    FLASK_DEBUG=0<br>
+                                    FLASK_SECRET=your-secret-key<br>
+                                    DATABASE_URL=sqlite:///attendance.db<br>
+                                    PORT=5000
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.admin-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.admin-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: slideInUp 0.6s ease-out;
+}
+
+.admin-card.bg-light {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+}
+
+.setting-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.setting-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+}
+
+code {
+    background: #f5f5f5;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: #d63384;
+}
+
+.help-item {
+    padding: 1rem;
+    background: white;
+    border-radius: 10px;
+}
+
+.help-item h6 {
+    color: #667eea;
+    margin-bottom: 0.5rem;
+}
+</style>
+{% endblock %}

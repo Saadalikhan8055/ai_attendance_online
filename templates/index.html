@@ -1,37 +1,1286 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="p-5 mb-4 bg-light rounded-3 fade-in">
-    <div class="container-fluid py-5 text-center">
-        <h1 class="display-5 fw-bold">Welcome to the AI Attendance System</h1>
-        <p class="fs-4">
-            A complete solution for managing student attendance using real-time face recognition.
-            Register students and mark attendance with a simple webcam capture.
+
+<!-- Welcome Animation Overlay -->
+<div id="welcomeOverlay" class="welcome-overlay">
+    <!-- Animated Background Elements -->
+    <div class="welcome-bg">
+        <!-- Rotating Shapes -->
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+        
+        <!-- Particle Systems -->
+        <div class="particle-container" id="particleContainer"></div>
+        <div class="sparkle-container" id="sparkleContainer"></div>
+        
+        <!-- Glowing Stars -->
+        <div class="star star-1"></div>
+        <div class="star star-2"></div>
+        <div class="star star-3"></div>
+        <div class="star star-4"></div>
+        <div class="star star-5"></div>
+    </div>
+    
+    <div class="welcome-content">
+        <!-- Multiple Orbiting Systems -->
+        <div class="orbit-system">
+            <div class="orbit-container">
+                <div class="orbit-element orbit-1">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="orbit-element orbit-2">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <div class="orbit-element orbit-3">
+                    <i class="fas fa-database"></i>
+                </div>
+            </div>
+            
+            <!-- Inner Rotating Ring -->
+            <div class="inner-ring"></div>
+        </div>
+
+        <!-- Icon with Advanced Glow System -->
+        <div class="welcome-icon-wrapper">
+            <div class="icon-glow glow-1"></div>
+            <div class="icon-glow glow-2"></div>
+            <div class="icon-glow glow-3"></div>
+            
+            <div class="welcome-icon">
+                <i class="fas fa-face-smile"></i>
+            </div>
+            
+            <div class="icon-pulse"></div>
+            <div class="icon-pulse pulse-2"></div>
+            <div class="icon-pulse pulse-3"></div>
+        </div>
+
+        <!-- Animated Gradient Text -->
+        <h2 class="welcome-text gradient-text" id="welcomeText">
+            Welcome to AI Attendance
+        </h2>
+        
+        <!-- Animated Subtitle with Effects -->
+        <p class="welcome-subtitle shimmer-text">
+            Intelligent Face Recognition System
         </p>
-        <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg mt-3">Log In</a>
+
+        <!-- Enhanced Loading Animation -->
+        <div class="loading-animation">
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="loading-text">Processing...</div>
+        </div>
+
+        <!-- Advanced Progress Bar -->
+        <div class="progress-bar-container">
+            <div class="progress-bar-glow"></div>
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <!-- Animated Status Line -->
+        <div class="status-line"></div>
     </div>
 </div>
 
-<div class="row fade-in mt-4">
-    <div class="col-md-4">
-        <h2>Features</h2>
-        <p>
-            This system offers a simple, secure way to track attendance.
-            No more manual roll calls—just let the AI do the work.
-        </p>
+<!-- Hero Section -->
+<section class="hero-section text-center py-5" id="heroSection">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <h1 class="display-4 fw-bold text-white mb-4 hero-title">Smart Campus Attendance</h1>
+                    <p class="lead text-white-50 mb-4 hero-subtitle">
+                        One platform for student registration, live face recognition, and admin-ready reporting. 
+                        Save 80% time on attendance and reduce proxy attendance risk.
+                    </p>
+                    <div class="d-flex gap-3 justify-content-center justify-content-lg-start hero-buttons">
+                        <a href="{{ url_for('register_student_route') }}" class="btn btn-secondary btn-lg px-4 py-2 btn-glow">
+                            <i class="fas fa-user-plus me-2"></i>Start Registering
+                        </a>
+                        <a href="{{ url_for('features') }}" class="btn btn-outline-light btn-lg px-4 py-2">
+                            <i class="fas fa-info-circle me-2"></i>Explore Features
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image floating hero-animate">
+                    <i class="fas fa-user-astronaut display-1 text-white opacity-80"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Animated background elements -->
+        <div class="hero-bg-element element-1"></div>
+        <div class="hero-bg-element element-2"></div>
+        <div class="hero-bg-element element-3"></div>
     </div>
-    <div class="col-md-4">
-        <h2>How It Works</h2>
-        <p>
-            Students are registered by uploading a photo. When attendance capture is active,
-            the system identifies faces and logs attendance automatically.
-        </p>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5 bg-gradient-dark text-white">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-md-6">
+                <div class="stat-card p-4 rounded-3">
+                    <h3 class="counter" data-target="99">0</h3>
+                    <p class="small mt-2">Accuracy Rate %</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="stat-card p-4 rounded-3">
+                    <h3 class="counter" data-target="80">0</h3>
+                    <p class="small mt-2">Time Saved %</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Dashboard</h2>
-        <p>
-            The dashboard provides a protected space to view attendance records,
-            filter by date, and export data for your reports.
-        </p>
+</section>
+
+<!-- Value Props -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-md-4">
+                <div class="value-card p-4 rounded-3 shadow-sm card-hover">
+                    <i class="fas fa-clock fa-3x mb-3 text-primary"></i>
+                    <h5>Real-Time Capture</h5>
+                    <p class="small text-muted">Instant face detection and attendance status at the moment of class.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="value-card p-4 rounded-3 shadow-sm card-hover">
+                    <i class="fas fa-lock fa-3x mb-3 text-success"></i>
+                    <h5>Anti-Spoofing Tech</h5>
+                    <p class="small text-muted">Liveness checks prevent faked photos and proxy entry abuses.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="value-card p-4 rounded-3 shadow-sm card-hover">
+                    <i class="fas fa-file-export fa-3x mb-3 text-info"></i>
+                    <h5>Auto Reports</h5>
+                    <p class="small text-muted">Export daily, weekly, monthly analytics with one click.</p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="display-5 fw-bold text-indigo">Core Features</h2>
+                <p class="lead text-muted">Everything your institution needs for reliable attendance control</p>
+                <div class="divider"></div>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card card h-100 border-0 shadow-sm hover-lift feature-animation">
+                    <div class="feature-icon-bg">
+                        <i class="fas fa-camera-retro"></i>
+                    </div>
+                    <div class="card-body text-center p-4">
+                        <h5 class="card-title fw-bold">Face Enrollment</h5>
+                        <p class="card-text text-muted">
+                            Easily add multiple student photos, auto-tag faces and back up encodings in DB.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card card h-100 border-0 shadow-sm hover-lift feature-animation" style="animation-delay: 0.1s;">
+                    <div class="feature-icon-bg">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="card-body text-center p-4">
+                        <h5 class="card-title fw-bold">Live Attendance Feed</h5>
+                        <p class="card-text text-muted">
+                            Stream from webcam to capture each present student and tag attendance instantly.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card card h-100 border-0 shadow-sm hover-lift feature-animation" style="animation-delay: 0.2s;">
+                    <div class="feature-icon-bg">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="card-body text-center p-4">
+                        <h5 class="card-title fw-bold">Dashboard & Reports</h5>
+                        <p class="card-text text-muted">
+                            Drill down by date, student, class, and download CSV for administrative reporting.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 g-4">
+            <div class="col-md-6">
+                <div class="feature-extra p-4 rounded-3 border feature-animation" style="animation-delay: 0.3s;">
+                    <h4 class="fw-bold mb-2"><i class="fas fa-users text-primary me-2"></i>Student Profile Management</h4>
+                    <p class="text-muted">Edit and maintain student records with photo replacement and ID lookup.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="feature-extra p-4 rounded-3 border feature-animation" style="animation-delay: 0.4s;">
+                    <h4 class="fw-bold mb-2"><i class="fas fa-exclamation-circle text-danger me-2"></i>Absent Alerts & Summary</h4>
+                    <p class="text-muted">Mark absent automatically and get summary alerts for follow-ups.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="display-5 fw-bold text-indigo">How It Works</h2>
+                <p class="lead text-muted">Simple steps to revolutionize your attendance process</p>
+                <div class="divider"></div>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="step-card text-center feature-animation">
+                    <div class="step-number mb-3">
+                        <span class="badge bg-primary rounded-pill fs-4 p-3">1</span>
+                    </div>
+                    <h5 class="fw-bold">Register & Enroll</h5>
+                    <p class="text-muted">
+                        Upload student photos with their IDs. System learns and builds face encodings automatically.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card text-center feature-animation" style="animation-delay: 0.1s;">
+                    <div class="step-number mb-3">
+                        <span class="badge bg-success rounded-pill fs-4 p-3">2</span>
+                    </div>
+                    <h5 class="fw-bold">Start Capture Session</h5>
+                    <p class="text-muted">
+                        Open live webcam feed during class. System continuously scans and detects recognized faces.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card text-center feature-animation" style="animation-delay: 0.2s;">
+                    <div class="step-number mb-3">
+                        <span class="badge bg-info rounded-pill fs-4 p-3">3</span>
+                    </div>
+                    <h5 class="fw-bold">Review & Export</h5>
+                    <p class="text-muted">
+                        Access dashboard, filter by date/class, review attendance and export to CSV/PDF instantly.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Start Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="display-5 fw-bold text-indigo">Quick Start in 3 Steps</h2>
+                <div class="divider"></div>
+                <p class="lead text-muted">Get your attendance system up and running in minutes</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="step-card p-4 rounded-3 shadow-sm feature-animation">
+                    <div class="step-number mb-3">
+                        <span class="badge bg-primary text-white" style="font-size: 1.5rem; padding: 0.75rem 1rem;">1</span>
+                    </div>
+                    <h5 class="fw-bold mb-3">Register Students</h5>
+                    <p class="text-muted">Enroll your students into the system. Our intelligent algorithm will automatically capture their face data for identification.</p>
+                    <div class="step-icon mt-3">
+                        <i class="fas fa-users text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card p-4 rounded-3 shadow-sm feature-animation" style="animation-delay: 0.1s;">
+                    <div class="step-number mb-3">
+                        <span class="badge bg-success text-white" style="font-size: 1.5rem; padding: 0.75rem 1rem;">2</span>
+                    </div>
+                    <h5 class="fw-bold mb-3">Start Capturing</h5>
+                    <p class="text-muted">Position your camera and let our AI do the work. Real-time face recognition automatically marks attendance as students enter.</p>
+                    <div class="step-icon mt-3">
+                        <i class="fas fa-camera text-success" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card p-4 rounded-3 shadow-sm feature-animation" style="animation-delay: 0.2s;">
+                    <div class="step-number mb-3">
+                        <span class="badge bg-info text-white" style="font-size: 1.5rem; padding: 0.75rem 1rem;">3</span>
+                    </div>
+                    <h5 class="fw-bold mb-3">Export Reports</h5>
+                    <p class="text-muted">Generate detailed attendance reports, export to CSV, and integrate with your management systems seamlessly.</p>
+                    <div class="step-icon mt-3">
+                        <i class="fas fa-file-csv text-info" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-gradient-primary text-white text-center">
+    <div class="container">
+        <h2 class="display-5 fw-bold mb-3">Ready to Transform Attendance?</h2>
+        <p class="lead mb-4">Be among the first to revolutionize your campus with AI-powered attendance</p>
+        <div class="d-flex gap-3 justify-content-center">
+            <a href="{{ url_for('register_student_route') }}" class="btn btn-light btn-lg px-5 py-3 btn-glow">
+                <i class="fas fa-rocket me-2"></i>Get Started Now
+            </a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg px-5 py-3">
+                <i class="fas fa-sign-in-alt me-2"></i>Sign In
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3">
+                <h5 class="fw-bold mb-3">AI Attendance</h5>
+                <p class="small text-muted">Smart face recognition for modern campuses.</p>
+            </div>
+            <div class="col-md-3">
+                <h5 class="fw-bold mb-3">Features</h5>
+                <ul class="list-unstyled small">
+                    <li><a href="#features" class="text-muted text-decoration-none">Face Enrollment</a></li>
+                    <li><a href="#features" class="text-muted text-decoration-none">Live Capture</a></li>
+                    <li><a href="#features" class="text-muted text-decoration-none">Reports</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5 class="fw-bold mb-3">Support</h5>
+                <ul class="list-unstyled small">
+                    <li><a href="#" class="text-muted text-decoration-none">Documentation</a></li>
+                    <li><a href="#" class="text-muted text-decoration-none">FAQ</a></li>
+                    <li><a href="#" class="text-muted text-decoration-none">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5 class="fw-bold mb-3">Follow Us</h5>
+                <div class="social-icons">
+                    <a href="#" class="text-muted me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                    <a href="#" class="text-muted me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#" class="text-muted"><i class="fab fa-linkedin fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr class="bg-secondary mt-4 mb-3">
+        <div class="text-center small text-muted">
+            <p>&copy; 2026 Smart Campus Attendance. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript for animations and counters -->
+<script>
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener('click', function (e) {
+    const targetId = this.getAttribute('href').slice(1);
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Counter animation
+function animateCounter() {
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach((counter) => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        let current = 0;
+        const increment = target / 30;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                counter.textContent = target + (counter.getAttribute('data-target') === '99' ? '' : counter.getAttribute('data-target') === '80' ? '' : '');
+                clearInterval(timer);
+            } else {
+                counter.textContent = Math.floor(current);
+            }
+        }, 30);
+    });
+}
+
+// Trigger counter animation when stats section is in view
+const statsSection = document.querySelector('.stat-card');
+if (statsSection) {
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            animateCounter();
+            observer.unobserve(statsSection);
+        }
+    });
+    observer.observe(statsSection);
+}
+
+// Welcome Animation with Advanced Effects
+window.addEventListener('load', function() {
+    const overlay = document.getElementById('welcomeOverlay');
+    const heroSection = document.getElementById('heroSection');
+    
+    // Generate advanced particle systems
+    generateParticles();
+    generateSparkles();
+    
+    // Animate progress bar
+    animateProgressBar();
+    
+    // Letter-by-letter text animation
+    animateWelcomeText();
+    
+    if (overlay) {
+        // Hide overlay after 4 seconds with fade out
+        setTimeout(() => {
+            overlay.classList.add('fade-out');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                // Trigger hero animations
+                if (heroSection) {
+                    triggerHeroAnimations();
+                }
+            }, 600);
+        }, 4000);
+    }
+});
+
+function generateParticles() {
+    const container = document.getElementById('particleContainer');
+    if (!container) return;
+    
+    const particleCount = 50;
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.width = (Math.random() * 3 + 2) + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.animationDelay = Math.random() * 2 + 's';
+        particle.style.animationDuration = (Math.random() * 4 + 3) + 's';
+        container.appendChild(particle);
+    }
+}
+
+function generateSparkles() {
+    const container = document.getElementById('sparkleContainer');
+    if (!container) return;
+    
+    const sparkleCount = 40;
+    for (let i = 0; i < sparkleCount; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.top = Math.random() * 100 + '%';
+        sparkle.style.animationDelay = Math.random() * 3 + 's';
+        sparkle.style.animationDuration = (Math.random() * 2 + 1) + 's';
+        container.appendChild(sparkle);
+    }
+}
+
+function animateProgressBar() {
+    const progressBar = document.getElementById('progressBar');
+    if (!progressBar) return;
+    
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 25;
+        if (progress > 100) {
+            progress = 100;
+            clearInterval(interval);
+        }
+        progressBar.style.width = progress + '%';
+    }, 250);
+}
+
+function animateWelcomeText() {
+    const textElement = document.getElementById('welcomeText');
+    if (!textElement) return;
+    
+    const text = textElement.textContent;
+    textElement.textContent = '';
+    textElement.classList.add('letter-animation');
+    
+    let delay = 0;
+    for (let i = 0; i < text.length; i++) {
+        const span = document.createElement('span');
+        span.textContent = text[i];
+        span.style.animationDelay = (delay * 0.06) + 's';
+        span.className = 'letter';
+        textElement.appendChild(span);
+        delay++;
+    }
+}
+
+function triggerHeroAnimations() {
+    const title = document.querySelector('.hero-title');
+    const subtitle = document.querySelector('.hero-subtitle');
+    const buttons = document.querySelector('.hero-buttons');
+    const heroImage = document.querySelector('.hero-animate');
+    const elements = document.querySelectorAll('.hero-bg-element');
+    
+    if (title) title.classList.add('animate-slide-in-left');
+    if (subtitle) subtitle.classList.add('animate-fade-in-up');
+    if (buttons) buttons.classList.add('animate-fade-in-up');
+    if (heroImage) heroImage.classList.add('animate-slide-in-right');
+    
+    elements.forEach((el, index) => {
+        setTimeout(() => {
+            el.classList.add('animate-float');
+        }, 100 * index);
+    });
+}
+</script>
+
+<style>
+/* === ADVANCED WELCOME OVERLAY ANIMATION === */
+.welcome-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 40%, #f093fb 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: welcomeOverlayFadeIn 0.5s ease-in;
+    overflow: hidden;
+}
+
+.welcome-overlay.fade-out {
+    animation: welcomeOverlayFadeOut 0.6s ease-out forwards;
+}
+
+.welcome-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* === ANIMATED SHAPES (Enhanced) === */
+.shape {
+    position: absolute;
+    opacity: 0.08;
+    border-radius: 50%;
+    filter: blur(2px);
+}
+
+.shape-1 {
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, white, #f093fb);
+    top: -150px;
+    right: -150px;
+    animation: shapeRotate1 20s linear infinite;
+}
+
+.shape-2 {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, #667eea, white);
+    bottom: -100px;
+    left: -150px;
+    animation: shapeRotate2 25s linear infinite;
+}
+
+.shape-3 {
+    width: 350px;
+    height: 350px;
+    background: linear-gradient(135deg, #764ba2, #f093fb);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: shapeRotate3 30s linear infinite;
+}
+
+.shape-4 {
+    width: 300px;
+    height: 300px;
+    background: white;
+    top: 20%;
+    left: 10%;
+    animation: shapeRotate1 18s linear infinite;
+}
+
+.shape-5 {
+    width: 250px;
+    height: 250px;
+    background: #f093fb;
+    bottom: 25%;
+    right: 15%;
+    animation: shapeRotate2 22s linear infinite;
+}
+
+/* === PARTICLES === */
+.particle-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleFloat linear forwards;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* === SPARKLES === */
+.sparkle-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: white;
+    box-shadow: 0 0 20px white;
+    border-radius: 50%;
+    animation: sparkleTwinkle ease-in-out forwards;
+}
+
+.sparkle::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, white, transparent);
+    border-radius: 50%;
+    animation: sparkleGlow 2s ease-in-out infinite;
+}
+
+/* === GLOWING STARS === */
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 15px white;
+    animation: starTwinkle 3s ease-in-out infinite;
+}
+
+.star-1 {
+    top: 10%;
+    left: 15%;
+    animation-delay: 0s;
+}
+
+.star-2 {
+    top: 20%;
+    right: 20%;
+    animation-delay: 0.5s;
+}
+
+.star-3 {
+    bottom: 25%;
+    left: 25%;
+    animation-delay: 1s;
+}
+
+.star-4 {
+    bottom: 15%;
+    right: 30%;
+    animation-delay: 1.5s;
+}
+
+.star-5 {
+    top: 50%;
+    right: 10%;
+    animation-delay: 2s;
+}
+
+/* === ORBITING SYSTEM === */
+.orbit-system {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin: 0 auto 3rem;
+}
+
+.orbit-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.inner-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 180px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation: ringRotate 8s linear infinite;
+}
+
+.inner-ring::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: white;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    box-shadow: 0 0 10px white;
+}
+
+.orbit-element {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    animation: orbit 6s linear infinite;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.orbit-1 {
+    animation-delay: 0s;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.orbit-2 {
+    animation-delay: -2s;
+}
+
+.orbit-3 {
+    animation-delay: -4s;
+}
+
+/* === ADVANCED ICON EFFECTS === */
+.welcome-icon-wrapper {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 2rem auto;
+}
+
+.icon-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+.glow-1 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(240, 147, 251, 0.4), transparent);
+    animation-delay: 0s;
+}
+
+.glow-2 {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.3), transparent);
+    animation-delay: 0.3s;
+}
+
+.glow-3 {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+    animation-delay: 0.6s;
+}
+
+.welcome-icon {
+    position: relative;
+    z-index: 5;
+    font-size: 5rem;
+    color: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: iconBounce 1.2s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.6));
+}
+
+.icon-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    border: 2px solid white;
+    border-radius: 50%;
+    animation: iconPulseRing 2s ease-out infinite;
+}
+
+.pulse-2 {
+    width: 150px;
+    height: 150px;
+    border-width: 1px;
+    animation-delay: 0.3s;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.pulse-3 {
+    width: 180px;
+    height: 180px;
+    border-width: 1px;
+    animation-delay: 0.6s;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* === TEXT ANIMATIONS === */
+.welcome-content {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    color: white;
+    animation: contentFadeIn 0.8s ease-in;
+}
+
+.welcome-text {
+    font-size: 2.8rem;
+    font-weight: 900;
+    margin: 2rem 0 1rem;
+    letter-spacing: 3px;
+    height: auto;
+    min-height: 3.5rem;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #ffffff 0%, #f093fb 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+}
+
+.welcome-text .letter {
+    display: inline-block;
+    animation: letterBounce 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.welcome-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+    animation: subtitleFadeIn 1.2s ease-in 0.6s forwards;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+}
+
+.shimmer-text {
+    animation: shimmerEffect 2s ease-in-out infinite;
+}
+
+/* === ENHANCED LOADING ANIMATION === */
+.loading-animation {
+    margin: 2rem 0;
+}
+
+.loading-dots {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.loading-dots span {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: white;
+    animation: loadingDot 1.4s infinite;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+    position: relative;
+}
+
+.loading-dots span::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, white, transparent);
+    border-radius: 50%;
+    animation: loadingGlow 1.4s infinite;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.loading-text {
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    animation: textPulse 1.5s ease-in-out infinite;
+}
+
+/* === ADVANCED PROGRESS BAR === */
+.progress-bar-container {
+    width: 180px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 0 auto 1.5rem;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.progress-bar-glow {
+    position: absolute;
+    height: 4px;
+    background: radial-gradient(circle, rgba(240, 147, 251, 0.8), transparent);
+    width: 30px;
+    filter: blur(8px);
+    animation: glowSlide 2s ease-in-out infinite;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+    width: 0%;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 15px rgba(240, 147, 251, 0.9);
+}
+
+.status-line {
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, white, transparent);
+    margin: 1rem auto;
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+/* === KEYFRAME ANIMATIONS === */
+@keyframes welcomeOverlayFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes welcomeOverlayFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes shapeRotate1 {
+    from { transform: rotate(0deg) scale(1); }
+    to { transform: rotate(360deg) scale(1.1); }
+}
+
+@keyframes shapeRotate2 {
+    from { transform: rotate(0deg) scale(1); }
+    to { transform: rotate(-360deg) scale(0.9); }
+}
+
+@keyframes shapeRotate3 {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes particleFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-150px) scale(0);
+    }
+}
+
+@keyframes sparkleTwinkle {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes sparkleGlow {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+}
+
+@keyframes starTwinkle {
+    0%, 100% {
+        opacity: 0.3;
+        box-shadow: 0 0 5px white;
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 20px white;
+    }
+}
+
+@keyframes orbit {
+    0% { transform: rotate(0deg) translateX(125px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(125px) rotate(-360deg); }
+}
+
+@keyframes ringRotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes iconPulseRing {
+    0% {
+        width: 120px;
+        height: 120px;
+        opacity: 1;
+    }
+    100% {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+    }
+}
+
+@keyframes contentFadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes letterBounce {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% center;
+    }
+    50% {
+        background-position: 100% center;
+    }
+}
+
+@keyframes subtitleFadeIn {
+    from { opacity: 0; }
+    to { opacity: 0.95; }
+}
+
+@keyframes shimmerEffect {
+    0%, 100% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes loadingDot {
+    0%, 60%, 100% {
+        opacity: 0.3;
+    }
+    30% {
+        opacity: 1;
+    }
+}
+
+@keyframes loadingGlow {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes textPulse {
+    0%, 100% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes glowSlide {
+    0% {
+        left: -30px;
+    }
+    100% {
+        left: 180px;
+    }
+}
+
+@keyframes statusPulse {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* === HERO SECTION ANIMATIONS === */
+.hero-title {
+    opacity: 0;
+}
+
+.hero-subtitle {
+    opacity: 0;
+}
+
+.hero-buttons {
+    opacity: 0;
+}
+
+.hero-animate {
+    opacity: 0;
+}
+
+.animate-slide-in-left {
+    animation: slideInLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-slide-in-right {
+    animation: slideInRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+.hero-bg-element {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.element-1 {
+    width: 300px;
+    height: 300px;
+    background: #667eea;
+    top: 10%;
+    right: -100px;
+}
+
+.element-2 {
+    width: 200px;
+    height: 200px;
+    background: #764ba2;
+    bottom: 20%;
+    left: -80px;
+}
+
+.element-3 {
+    width: 250px;
+    height: 250px;
+    background: #667eea;
+    bottom: 10%;
+    right: 10%;
+}
+
+.animate-float {
+    animation: floatElement 6s ease-in-out infinite;
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatElement {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-30px); }
+}
+</style>
+
 {% endblock %}

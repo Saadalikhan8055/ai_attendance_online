@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="profile-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Header -->
+                <div class="section-header text-center mb-5">
+                    <h2 class="display-5 fw-bold text-primary">Student Directory</h2>
+                    <p class="lead text-muted">View and manage student attendance records</p>
+                    <div class="divider"></div>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-container mb-5">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text border-0">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input 
+                            type="text" 
+                            class="form-control form-control-lg border-0 input-animated" 
+                            id="searchStudent"
+                            placeholder="Search student by name or ID..."
+                        />
+                    </div>
+                </div>
+
+                <!-- Student List -->
+                <div id="studentList" class="student-list">
+                    <!-- Students will be loaded here -->
+                    <div class="text-center text-muted py-5">
+                        <i class="fas fa-users fa-3x mb-3 opacity-50"></i>
+                        <p>Loading students...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Detail Modal -->
+        <div class="modal fade" id="studentDetailModal" tabindex="-1">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content border-0">
+                    <div class="modal-header border-0 bg-light">
+                        <h5 class="modal-title fw-bold">
+                            <i class="fas fa-user-circle me-2"></i>Student Profile
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="detail-card">
+                                    <h6 class="text-muted small">Name</h6>
+                                    <h5 class="fw-bold" id="studentName">-</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-card">
+                                    <h6 class="text-muted small">Student ID</h6>
+                                    <h5 class="fw-bold" id="studentId">-</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Attendance Stats -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-3">
+                                <div class="stat-mini">
+                                    <i class="fas fa-check-circle text-success"></i>
+                                    <h6 class="text-muted small">Present</h6>
+                                    <h4 class="fw-bold" id="presentDays">0</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stat-mini">
+                                    <i class="fas fa-times-circle text-danger"></i>
+                                    <h6 class="text-muted small">Absent</h6>
+                                    <h4 class="fw-bold" id="absentDays">0</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stat-mini">
+                                    <i class="fas fa-calendar text-info"></i>
+                                    <h6 class="text-muted small">Total Days</h6>
+                                    <h4 class="fw-bold" id="totalDays">0</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stat-mini">
+                                    <i class="fas fa-percentage text-warning"></i>
+                                    <h6 class="text-muted small">Percentage</h6>
+                                    <h4 class="fw-bold" id="percentage">0%</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Attendance History -->
+                        <h6 class="fw-bold mb-3">
+                            <i class="fas fa-history me-2"></i>Attendance History
+                        </h6>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="attendanceHistory">
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted">Loading records...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.profile-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.search-container {
+    animation: slideInDown 0.6s ease-out;
+}
+
+.input-group-text {
+    background: white;
+    color: #667eea;
+}
+
+.student-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.student-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: cardSlideUp 0.6s ease-out backwards;
+}
+
+.student-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.student-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.student-card h5 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.student-id {
+    color: #999;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.attendance-badge {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.attendance-badge.good {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.attendance-badge.warning {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+.attendance-badge.danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.detail-card {
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 10px;
+}
+
+.stat-mini {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.stat-mini i {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.modal-content {
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    loadStudents();
+    
+    document.getElementById('searchStudent').addEventListener('keyup', function(e) {
+        const query = e.target.value.toLowerCase();
+        document.querySelectorAll('.student-card').forEach(card => {
+            const text = card.textContent.toLowerCase();
+            card.style.display = text.includes(query) ? 'block' : 'none';
+        });
+    });
+});
+
+function loadStudents() {
+    // Sample data - replace with actual API call
+    const students = [
+        { id: '001', name: 'Ahmed Khan', present: 45, absent: 5 },
+        { id: '002', name: 'Fatima Ali', present: 48, absent: 2 },
+        { id: '003', name: 'Hassan Muhammad', present: 40, absent: 10 }
+    ];
+
+    const studentList = document.getElementById('studentList');
+    studentList.innerHTML = students.map((student, idx) => `
+        <div class="student-card" style="animation-delay: ${idx * 0.1}s" onclick="showStudentDetail('${student.id}', '${student.name}', ${student.present}, ${student.absent})">
+            <div class="student-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <h5>${student.name}</h5>
+            <p class="student-id">ID: ${student.id}</p>
+            <div class="d-flex justify-content-between mb-2">
+                <span class="badge bg-success">${student.present} Present</span>
+                <span class="badge bg-danger">${student.absent} Absent</span>
+            </div>
+            <div class="attendance-badge ${getAttendanceClass(student.present, student.absent)}">
+                ${Math.round((student.present / (student.present + student.absent)) * 100)}% Attendance
+            </div>
+        </div>
+    `).join('');
+}
+
+function getAttendanceClass(present, absent) {
+    const percentage = (present / (present + absent)) * 100;
+    if (percentage >= 85) return 'good';
+    if (percentage >= 75) return 'warning';
+    return 'danger';
+}
+
+function showStudentDetail(id, name, present, absent) {
+    const total = present + absent;
+    const percentage = Math.round((present / total) * 100);
+    
+    document.getElementById('studentName').textContent = name;
+    document.getElementById('studentId').textContent = id;
+    document.getElementById('presentDays').textContent = present;
+    document.getElementById('absentDays').textContent = absent;
+    document.getElementById('totalDays').textContent = total;
+    document.getElementById('percentage').textContent = percentage + '%';
+    
+    // Sample attendance history
+    const history = `
+        <tr class="table-row-animation">
+            <td>2025-01-15</td>
+            <td><span class="badge bg-success">Present</span></td>
+            <td>09:30 AM</td>
+        </tr>
+        <tr class="table-row-animation">
+            <td>2025-01-14</td>
+            <td><span class="badge bg-success">Present</span></td>
+            <td>09:25 AM</td>
+        </tr>
+        <tr class="table-row-animation">
+            <td>2025-01-13</td>
+            <td><span class="badge bg-danger">Absent</span></td>
+            <td>-</td>
+        </tr>
+    `;
+    document.getElementById('attendanceHistory').innerHTML = history;
+    
+    new bootstrap.Modal(document.getElementById('studentDetailModal')).show();
+}
+</script>
+{% endblock %}

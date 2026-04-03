@@ -1,0 +1,406 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="faq-section py-5">
+    <div class="container">
+        <!-- Header -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="section-header text-center mb-5">
+                    <h2 class="display-5 fw-bold text-primary">Frequently Asked Questions</h2>
+                    <p class="lead text-muted">Find answers to common questions about AI Attendance</p>
+                    <div class="divider"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="search-box">
+                    <input 
+                        type="text" 
+                        class="form-control form-control-lg input-animated" 
+                        id="faqSearch"
+                        placeholder="Search FAQs..."
+                    />
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Categories -->
+        <div class="row mb-5 g-3">
+            <div class="col-md-3">
+                <button class="category-btn active" onclick="filterCategory('all')">
+                    <i class="fas fa-circle me-2"></i>All Questions
+                </button>
+            </div>
+            <div class="col-md-3">
+                <button class="category-btn" onclick="filterCategory('general')">
+                    <i class="fas fa-question-circle me-2"></i>General
+                </button>
+            </div>
+            <div class="col-md-3">
+                <button class="category-btn" onclick="filterCategory('technical')">
+                    <i class="fas fa-cogs me-2"></i>Technical
+                </button>
+            </div>
+            <div class="col-md-3">
+                <button class="category-btn" onclick="filterCategory('support')">
+                    <i class="fas fa-headset me-2"></i>Support
+                </button>
+            </div>
+        </div>
+
+        <!-- FAQ Items -->
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- General Questions -->
+                <div class="faq-item-wrapper" data-category="general">
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFAQ(this)">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="fas fa-plus-circle me-2 text-primary"></i>
+                                What is AI Attendance?
+                            </h5>
+                        </div>
+                        <div class="faq-body">
+                            <p>AI Attendance is an automated face recognition system designed to streamline attendance marking in educational institutions and organizations. It uses facial recognition technology to quickly and accurately mark attendance without manual processes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item-wrapper" data-category="general">
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFAQ(this)">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="fas fa-plus-circle me-2 text-primary"></i>
+                                How accurate is the face detection?
+                            </h5>
+                        </div>
+                        <div class="faq-body">
+                            <p>Our system achieves 99% accuracy in facial recognition under optimal conditions. Accuracy depends on photo quality, lighting, and consistent appearance. We recommend clear, front-facing photos during enrollment.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item-wrapper" data-category="general">
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFAQ(this)">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="fas fa-plus-circle me-2 text-primary"></i>
+                                Is the system secure and private?
+                            </h5>
+                        </div>
+                        <div class="faq-body">
+                            <p>Yes! We use encrypted data storage, secure authentication, and comply with privacy regulations. Face data is stored securely and never shared with third parties. All communications are encrypted.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Questions -->
+                <div class="faq-item-wrapper" data-category="technical">
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFAQ(this)">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="fas fa-plus-circle me-2 text-primary"></i>
+                                What are the hardware requirements?
+                            </h5>
+                        </div>
+                        <div class="faq-body">
+                            <ul>
+                                <li><strong>Webcam:</strong> Any standard USB webcam or built-in camera</li>
+                                <li><strong>Processor:</strong> Intel i5 or equivalent</li>
+                                <li><strong>RAM:</strong> 2GB minimum, 4GB recommended</li>
+                                <li><strong>Internet:</strong> Stable connection for real-time processing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item-wrapper" data-category="technical">
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFAQ(this)">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="fas fa-plus-circle me-2 text-primary"></i>
+                                Does it work offline?
+                            </h5>
+                        </div>
+                        <div class="faq-body">
+                            <p>The system requires internet connectivity for enrollment and data synchronization. However, captured attendance data is cached locally. We recommend maintaining a stable connection for optimal performance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item-wrapper" data-category="technical">
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFAQ(this)">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="fas fa-plus-circle me-2 text-primary"></i>
+                                What browsers are supported?
+                            </h5>
+                        </div>
+                        <div class="faq-body">
+                            <ul>
+                                <li>Google Chrome (v90+)</li>
+                                <li>Mozilla Firefox (v88+)</li>
+                                <li>Safari (v14+)</li>
+                                <li>Microsoft Edge (v90+)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support Questions -->
+                <div class="faq-item-wrapper" data-category="support">
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFAQ(this)">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="fas fa-plus-circle me-2 text-primary"></i>
+                                I forgot my password, what should I do?
+                            </h5>
+                        </div>
+                        <div class="faq-body">
+                            <p>Contact your system administrator to reset your password. For security reasons, passwords cannot be reset through the system directly. The admin can issue a temporary password.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item-wrapper" data-category="support">
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFAQ(this)">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="fas fa-plus-circle me-2 text-primary"></i>
+                                How do I export attendance data?
+                            </h5>
+                        </div>
+                        <div class="faq-body">
+                            <p>Go to Dashboard → Reports → Export Data. This will download your attendance records as a CSV file that can be opened in Excel or Google Sheets.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item-wrapper" data-category="support">
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFAQ(this)">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="fas fa-plus-circle me-2 text-primary"></i>
+                                How can I get technical support?
+                            </h5>
+                        </div>
+                        <div class="faq-body">
+                            <p>You can reach our support team through:</p>
+                            <ul>
+                                <li><strong>Email:</strong> support@aiattendance.com</li>
+                                <li><strong>Phone:</strong> +1-800-ATTEND-1</li>
+                                <li><strong>Chat:</strong> Available 9 AM - 5 PM EST</li>
+                                <li><strong>Contact Form:</strong> Visit our Contact Us page</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item-wrapper" data-category="support">
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFAQ(this)">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="fas fa-plus-circle me-2 text-primary"></i>
+                                What is your uptime guarantee?
+                            </h5>
+                        </div>
+                        <div class="faq-body">
+                            <p>We guarantee 99.9% uptime for our cloud-hosted services. We perform scheduled maintenance during low-usage periods (typically 2-4 AM UTC). Emergency support is available 24/7.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Still Need Help? -->
+        <div class="row mt-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="help-card">
+                    <h4 class="fw-bold mb-3">
+                        <i class="fas fa-lightbulb me-2 text-warning"></i>Still need help?
+                    </h4>
+                    <p class="mb-3">Can't find the answer you're looking for? Our support team is here to help.</p>
+                    <a href="{{ url_for('contact_us') }}" class="btn btn-primary btn-lg btn-glow">
+                        <i class="fas fa-envelope me-2"></i>Contact Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.faq-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.search-box {
+    position: relative;
+    animation: slideInDown 0.6s ease-out;
+}
+
+.search-box input {
+    border-radius: 10px;
+    border: none;
+    padding: 0.75rem 1rem 0.75rem 3rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.search-box i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.category-btn {
+    background: white;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #666;
+    width: 100%;
+    animation: slideInUp 0.6s ease-out backwards;
+}
+
+.category-btn:nth-child(1) { animation-delay: 0s; }
+.category-btn:nth-child(2) { animation-delay: 0.1s; }
+.category-btn:nth-child(3) { animation-delay: 0.2s; }
+.category-btn:nth-child(4) { animation-delay: 0.3s; }
+
+.category-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+    transform: translateY(-3px);
+}
+
+.category-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.faq-item-wrapper {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.faq-item {
+    background: white;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.faq-header {
+    padding: 1.5rem;
+    cursor: pointer;
+    background: linear-gradient(135deg, #f5f7fa 0%, #f0f2f5 100%);
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.faq-header:hover {
+    background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+}
+
+.faq-header h5 {
+    margin: 0;
+    color: #333;
+}
+
+.faq-header i {
+    transition: transform 0.3s ease;
+}
+
+.faq-item.open .faq-header i {
+    transform: rotate(45deg);
+}
+
+.faq-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 1.5rem;
+}
+
+.faq-item.open .faq-body {
+    max-height: 500px;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.faq-body p {
+    color: #666;
+    line-height: 1.8;
+    margin: 0.75rem 0;
+}
+
+.faq-body ul {
+    margin: 0.75rem 0 0 1.5rem;
+    color: #666;
+}
+
+.faq-body li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.help-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: slideInUp 0.8s ease-out;
+    border-left: 5px solid #667eea;
+}
+
+.help-card p {
+    color: #666;
+    font-size: 1.1rem;
+}
+</style>
+
+<script>
+function toggleFAQ(element) {
+    const item = element.closest('.faq-item');
+    item.classList.toggle('open');
+}
+
+function filterCategory(category) {
+    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    document.querySelectorAll('.faq-item-wrapper').forEach(wrapper => {
+        if (category === 'all') {
+            wrapper.style.display = 'block';
+        } else {
+            wrapper.style.display = wrapper.dataset.category === category ? 'block' : 'none';
+        }
+    });
+}
+
+document.getElementById('faqSearch').addEventListener('keyup', function(e) {
+    const query = e.target.value.toLowerCase();
+    document.querySelectorAll('.faq-item-wrapper').forEach(wrapper => {
+        const text = wrapper.textContent.toLowerCase();
+        wrapper.style.display = text.includes(query) ? 'block' : 'none';
+    });
+});
+</script>
+{% endblock %}

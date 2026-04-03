@@ -1,0 +1,1010 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="features-section">
+    <!-- Hero Section -->
+    <div class="features-hero">
+        <div class="hero-background">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-7">
+                    <div class="hero-content">
+                        <span class="badge-pill">✨ POWERFUL FEATURES</span>
+                        <h1 class="hero-title animate-fadeInUp">
+                            Explore Advanced Features
+                        </h1>
+                        <p class="hero-subtitle animate-fadeInUp" style="animation-delay: 0.2s;">
+                            Discover how AI Attendance transforms campus management with cutting-edge facial recognition technology
+                        </p>
+                        <div class="hero-buttons animate-fadeInUp" style="animation-delay: 0.4s;">
+                            <a href="#features-details" class="btn btn-primary btn-lg btn-glow">
+                                <i class="fas fa-arrow-down me-2"></i>See All Features
+                            </a>
+                            <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-lg">
+                                <i class="fas fa-play me-2"></i>Get Started
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="hero-visual">
+                        <div class="floating-card card-1">
+                            <div class="card-icon">
+                                <i class="fas fa-face-smile"></i>
+                            </div>
+                            <div class="card-text">
+                                <h6>Face Recognition</h6>
+                                <p>99% Accurate</p>
+                            </div>
+                        </div>
+                        <div class="floating-card card-2">
+                            <div class="card-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="card-text">
+                                <h6>Lightning Fast</h6>
+                                <p>&lt;100ms Detection</p>
+                            </div>
+                        </div>
+                        <div class="floating-card card-3">
+                            <div class="card-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="card-text">
+                                <h6>Bank Grade</h6>
+                                <p>Security</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Features Section -->
+    <div class="container py-5" id="features-details">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="section-header text-center mb-5">
+                    <h2 class="display-5 fw-bold text-primary">Key Features</h2>
+                    <p class="lead text-muted">Advanced capabilities that set AI Attendance apart</p>
+                    <div class="divider"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Features -->
+        <div class="row g-4 mb-5">
+            <!-- Face Enrollment -->
+            <div class="col-lg-6">
+                <div class="feature-card-premium">
+                    <div class="card-glow"></div>
+                    <div class="card-header">
+                        <div class="feature-image gradient-1">
+                            <i class="fas fa-face-smile"></i>
+                        </div>
+                        <span class="badge bg-success">CORE</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="fw-bold">Face Enrollment</h3>
+                        <p class="text-muted mb-4">Seamless and secure facial enrollment with advanced quality assurance and anti-spoofing technology.</p>
+                        
+                        <div class="feature-highlight mb-4">
+                            <h6 class="fw-bold mb-3">Key Capabilities:</h6>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <div class="capability-item">
+                                        <i class="fas fa-bolt text-warning"></i>
+                                        <span>< 60 seconds</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="capability-item">
+                                        <i class="fas fa-cube text-danger"></i>
+                                        <span>Multi-angle</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="capability-item">
+                                        <i class="fas fa-check-double text-success"></i>
+                                        <span>Quality Check</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="capability-item">
+                                        <i class="fas fa-shield-alt text-info"></i>
+                                        <span>Anti-Spoofing</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Automatic face quality detection with guidance</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Duplicate detection prevention system</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Liveness detection for spoofing prevention</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Batch enrollment support</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Real-time feedback interface</li>
+                        </ul>
+                        
+                        <a href="{{ url_for('register_student_route') }}" class="btn btn-primary btn-lg w-100 mt-4">
+                            <i class="fas fa-user-plus me-2"></i>Try Enrollment Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Capture -->
+            <div class="col-lg-6">
+                <div class="feature-card-premium">
+                    <div class="card-glow" style="background: linear-gradient(135deg, rgba(245, 87, 120, 0.3) 0%, rgba(240, 147, 251, 0.3) 100%);"></div>
+                    <div class="card-header">
+                        <div class="feature-image gradient-2">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <span class="badge bg-danger">REAL-TIME</span>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="fw-bold">Live Capture</h3>
+                        <p class="text-muted mb-4">Real-time attendance marking with instant face recognition and comprehensive logging system.</p>
+                        
+                        <div class="feature-highlight mb-4">
+                            <h6 class="fw-bold mb-3">Performance Metrics:</h6>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <div class="capability-item">
+                                        <i class="fas fa-tachometer-alt text-danger"></i>
+                                        <span>&lt;100ms Speed</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="capability-item">
+                                        <i class="fas fa-bullseye text-success"></i>
+                                        <span>99% Accuracy</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="capability-item">
+                                        <i class="fas fa-users text-info"></i>
+                                        <span>Multi-Face</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="capability-item">
+                                        <i class="fas fa-database text-primary"></i>
+                                        <span>Instant Log</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Real-time video streaming and processing</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Instant face recognition with confidence scores</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Automatic attendance marking with timestamps</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Detailed detection logs and analytics</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Multi-camera support</li>
+                        </ul>
+                        
+                        <a href="{{ url_for('start_capture') }}" class="btn btn-danger btn-lg w-100 mt-4">
+                            <i class="fas fa-play me-2"></i>Start Live Capture
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Features -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-box">
+                    <div class="feature-icon blue">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h5 class="fw-bold mt-3">Advanced Reports</h5>
+                    <p class="text-muted">Generate comprehensive attendance reports with filters, analytics, and export options.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-box">
+                    <div class="feature-icon green">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h5 class="fw-bold mt-3">Student Directory</h5>
+                    <p class="text-muted">Easy-to-use directory to search, view, and manage all student profiles and attendance history.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-box">
+                    <div class="feature-icon purple">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h5 class="fw-bold mt-3">Class Management</h5>
+                    <p class="text-muted">Organize and manage multiple classroom sections with different instructors and schedules.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-box">
+                    <div class="feature-icon orange">
+                        <i class="fas fa-line-chart"></i>
+                    </div>
+                    <h5 class="fw-bold mt-3">Real-time Analytics</h5>
+                    <p class="text-muted">Monitor attendance trends, identify at-risk students, and get actionable insights instantly.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-box">
+                    <div class="feature-icon teal">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h5 class="fw-bold mt-3">Data Export</h5>
+                    <p class="text-muted">Export attendance records in CSV format for use in Excel, Google Sheets, or other applications.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-box">
+                    <div class="feature-icon pink">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h5 class="fw-bold mt-3">Security & Privacy</h5>
+                    <p class="text-muted">Enterprise-grade encryption, secure authentication, and full compliance with data protection regulations.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="row my-5">
+            <div class="col-12">
+                <div class="spec-card">
+                    <h3 class="fw-bold mb-4">Technical Specifications</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="spec-item">
+                                <h6 class="fw-bold text-primary">Performance</h6>
+                                <ul class="list-unstyled">
+                                    <li><strong>Accuracy:</strong> 99%+ recognition accuracy</li>
+                                    <li><strong>Recognition Speed:</strong> < 100ms per face</li>
+                                    <li><strong>Enrollment Time:</strong> < 60 seconds</li>
+                                    <li><strong>Concurrent Users:</strong> 1000+ simultaneous sessions</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="spec-item">
+                                <h6 class="fw-bold text-primary">Technology</h6>
+                                <ul class="list-unstyled">
+                                    <li><strong>AI Engine:</strong> Deep learning neural networks</li>
+                                    <li><strong>Liveness:</strong> Multi-spectral liveness detection</li>
+                                    <li><strong>Database:</strong> Encrypted face templates</li>
+                                    <li><strong>Updates:</strong> Automatic model improvements</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benefits -->
+        <div class="row">
+            <div class="col-12">
+                <div class="benefits-section">
+                    <h3 class="fw-bold text-center mb-5">Benefits & Impact</h3>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="benefit-card">
+                                <div class="benefit-number">1</div>
+                                <h5 class="fw-bold">Eliminate Manual Attendance</h5>
+                                <p>Automate the attendance process and reduce administrative overhead by up to 80%.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="benefit-card">
+                                <div class="benefit-number">2</div>
+                                <h5 class="fw-bold">Prevent Proxy Attendance</h5>
+                                <p>Eliminate proxy attendance and ensure accurate records with facial recognition.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="benefit-card">
+                                <div class="benefit-number">3</div>
+                                <h5 class="fw-bold">Real-time Insights</h5>
+                                <p>Get instant attendance analytics to identify trends and intervene early.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="benefit-card">
+                                <div class="benefit-number">4</div>
+                                <h5 class="fw-bold">Scalable Solution</h5>
+                                <p>Deploy across multiple campuses and scale without additional infrastructure.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="benefit-card">
+                                <div class="benefit-number">5</div>
+                                <h5 class="fw-bold">Data Security</h5>
+                                <p>Protect sensitive student data with enterprise-grade encryption and compliance.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="benefit-card">
+                                <div class="benefit-number">6</div>
+                                <h5 class="fw-bold">Cost Savings</h5>
+                                <p>Reduce operational costs and improve resource allocation with automation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="cta-card">
+                    <h3 class="fw-bold mb-3">Ready to Transform Your Attendance?</h3>
+                    <p class="lead mb-4">Start using AI Attendance today and experience the difference.</p>
+                    <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg btn-glow me-3">
+                        <i class="fas fa-login me-2"></i>Login Now
+                    </a>
+                    <a href="{{ url_for('contact_us') }}" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-envelope me-2"></i>Request Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.features-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+/* === HERO SECTION STYLING === */
+.features-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 25%, #1e3c72 50%, #1a237e 75%, #0d47a1 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    filter: blur(50px);
+    opacity: 0.3;
+}
+
+.blob-1 {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    top: -50px;
+    left: -50px;
+    animation: blob-animation-1 8s infinite;
+}
+
+.blob-2 {
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    bottom: 100px;
+    right: 50px;
+    animation: blob-animation-2 10s infinite;
+}
+
+.blob-3 {
+    width: 280px;
+    height: 280px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    bottom: -100px;
+    left: 200px;
+    animation: blob-animation-3 12s infinite;
+}
+
+@keyframes blob-animation-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+@keyframes blob-animation-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-30px, 30px) scale(0.95); }
+    66% { transform: translate(25px, -25px) scale(1.05); }
+}
+
+@keyframes blob-animation-3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(50px, 20px) scale(1.1); }
+    66% { transform: translate(-40px, -30px) scale(0.9); }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.badge-pill {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #4facfe;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #667eea 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: slideInLeft 0.8s ease-out 0.1s backwards;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.hero-buttons .btn {
+    backdrop-filter: blur(10px);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.hero-buttons .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.hero-buttons .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+}
+
+.hero-buttons .btn-outline-primary {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.hero-buttons .btn-outline-primary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-3px);
+}
+
+.hero-visual {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    animation: slideInRight 0.8s ease-out;
+}
+
+.floating-card {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-card .card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.card-1 {
+    width: 280px;
+    top: -30px;
+    left: 20px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+}
+
+.card-1 .card-icon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.card-1 { animation-delay: 0s; }
+
+.card-2 {
+    width: 280px;
+    top: 150px;
+    right: -50px;
+    background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, rgba(245, 87, 120, 0.1) 100%);
+}
+
+.card-2 .card-icon {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.card-2 { animation-delay: 1s; }
+
+.card-3 {
+    width: 280px;
+    bottom: -20px;
+    left: -20px;
+    background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%);
+}
+
+.card-3 .card-icon {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.card-3 { animation-delay: 2s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.card-text h6 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 0.3rem 0;
+}
+
+.card-text p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Animations */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeInUp {
+    animation: slideInUp 0.8s ease-out backwards;
+}
+
+/* Additional Feature Cards */
+.feature-card-premium {
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: cardSlideUp 0.8s ease-out backwards;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.feature-card-premium .card-glow {
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(40px);
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.feature-card-premium:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
+}
+
+.feature-card-premium:hover .card-glow {
+    opacity: 1;
+}
+
+.feature-card-premium > * {
+    position: relative;
+    z-index: 1;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.feature-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2.5rem;
+    transition: all 0.3s ease;
+}
+
+.feature-image.gradient-1 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.feature-image.gradient-2 {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.feature-card-premium:hover .feature-image {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.feature-highlight {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border-radius: 15px;
+    padding: 1.5rem;
+}
+
+.capability-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.75rem;
+}
+
+.capability-item i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.capability-item span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.feature-list {
+    margin: 1.5rem 0;
+    list-style: none;
+    padding: 0;
+}
+
+.feature-list li {
+    margin: 0.75rem 0;
+    line-height: 1.6;
+    color: #555;
+}
+
+.feature-list li i {
+    color: #10b981;
+    font-weight: 700;
+}
+
+/* Rest of the existing styles */
+.feature-box {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    animation: cardSlideUp 0.6s ease-out backwards;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.feature-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+.feature-box:hover .feature-icon {
+    transform: scale(1.15) rotate(-5deg);
+}
+
+.feature-icon.blue { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.feature-icon.green { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+.feature-icon.purple { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); }
+.feature-icon.orange { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+.feature-icon.teal { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); }
+.feature-icon.pink { background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); }
+
+.spec-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: slideInUp 0.8s ease-out;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.spec-item {
+    margin: 1.5rem 0;
+}
+
+.spec-item h6 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #667eea;
+}
+
+.spec-item ul li {
+    margin: 0.75rem 0;
+    color: #666;
+}
+
+.benefit-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    animation: slideInUp 0.6s ease-out backwards;
+    position: relative;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.benefit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+    transition: left 0.3s ease;
+    z-index: 0;
+}
+
+.benefit-card:hover::before {
+    left: 0;
+}
+
+.benefit-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.benefit-number {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 auto 1rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.benefit-card h5 {
+    margin: 1rem 0;
+    font-size: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.benefit-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease infinite;
+    color: white;
+    border-radius: 20px;
+    padding: 4rem 2rem;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+    animation: slideInUp 1s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-card p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .hero-visual {
+        height: 300px;
+        margin-top: 2rem;
+    }
+
+    .floating-card {
+        width: 200px !important;
+        padding: 1rem;
+    }
+
+    .floating-card .card-text h6 {
+        font-size: 0.85rem;
+    }
+
+    .floating-card .card-text p {
+        font-size: 0.75rem;
+    }
+
+    .card-1, .card-2, .card-3 {
+        display: none;
+    }
+}
+</style>
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 auto 1rem;
+}
+
+.benefit-card h5 {
+    margin: 1rem 0;
+    font-size: 1rem;
+}
+
+.benefit-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.cta-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 20px;
+    padding: 4rem 2rem;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+    animation: slideInUp 1s ease-out;
+}
+
+.cta-card p {
+    color: rgba(255, 255, 255, 0.9);
+}
+</style>
+{% endblock %}

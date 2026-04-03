@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="admin-section py-5">
+    <div class="container">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="display-6 fw-bold text-primary mb-2">Manage Students</h2>
+                        <p class="text-muted">View and manage all registered students</p>
+                    </div>
+                    <a href="{{ url_for('admin_panel') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Admin
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search & Filter -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="search-box">
+                    <input 
+                        type="text" 
+                        class="form-control input-animated" 
+                        id="searchStudent"
+                        placeholder="Search by name or student ID..."
+                    />
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="badge bg-primary fs-6">
+                    <i class="fas fa-users me-1"></i>
+                    Total: <span id="totalCount">{{ students|length }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Students Table -->
+        <div class="row">
+            <div class="col-12">
+                <div class="admin-card">
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <i class="fas fa-user me-2"></i>Name
+                                    </th>
+                                    <th>
+                                        <i class="fas fa-id-card me-2"></i>Student ID
+                                    </th>
+                                    <th>
+                                        <i class="fas fa-envelope me-2"></i>Email
+                                    </th>
+                                    <th>
+                                        <i class="fas fa-calendar me-2"></i>Registered
+                                    </th>
+                                    <th class="text-center">
+                                        <i class="fas fa-cog me-2"></i>Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if students %}
+                                    {% for student in students %}
+                                    <tr class="admin-table-row" data-search="{{ student.name.lower() }} {{ student.student_id.lower() }}">
+                                        <td class="fw-600">{{ student.name }}</td>
+                                        <td>
+                                            <span class="badge bg-light text-dark">{{ student.student_id }}</span>
+                                        </td>
+                                        <td class="text-muted small">{{ student.email if student.email else 'N/A' }}</td>
+                                        <td class="text-muted small">
+                                            <i class="fas fa-calendar-day me-1"></i>
+                                            {{ student.id }}
+                                        </td>
+                                        <td class="text-center">
+                                            <form action="{{ url_for('admin_students') }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete this student and all records?');">
+                                                <input type="hidden" name="action" value="delete" />
+                                                <input type="hidden" name="student_id" value="{{ student.id }}" />
+                                                <button type="submit" class="btn btn-sm btn-danger btn-icon">
+                                                    <i class="fas fa-trash me-1"></i>Delete
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted py-5">
+                                            <i class="fas fa-inbox fa-3x mb-3 opacity-50"></i>
+                                            <p>No students registered yet</p>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.admin-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.search-box {
+    position: relative;
+}
+
+.search-box input {
+    border-radius: 10px;
+    border: none;
+    padding: 0.75rem 1rem 0.75rem 3rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.search-box i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.admin-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: slideInUp 0.6s ease-out;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table thead tr {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+    border-bottom: 2px solid #ddd;
+}
+
+.admin-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+}
+
+.admin-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-table-row {
+    transition: all 0.2s ease;
+}
+
+.admin-table-row:hover {
+    background: #f9fafb;
+}
+
+.btn-icon {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+.hidden {
+    display: none !important;
+}
+</style>
+
+<script>
+document.getElementById('searchStudent').addEventListener('keyup', function(e) {
+    const query = e.target.value.toLowerCase();
+    let visibleCount = 0;
+    
+    document.querySelectorAll('.admin-table-row').forEach(row => {
+        const searchText = row.dataset.search;
+        if (searchText.includes(query)) {
+            row.classList.remove('hidden');
+            visibleCount++;
+        } else {
+            row.classList.add('hidden');
+        }
+    });
+    
+    document.getElementById('totalCount').textContent = visibleCount || 0;
+});
+</script>
+{% endblock %}

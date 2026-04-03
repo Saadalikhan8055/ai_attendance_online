@@ -1,0 +1,640 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="class-management-section py-5">
+    <div class="container">
+        <!-- Header -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="section-header text-center mb-5">
+                    <h2 class="display-5 fw-bold text-primary">Class Management</h2>
+                    <p class="lead text-muted">Organize and manage classroom sections</p>
+                    <div class="divider"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Class Button -->
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <button class="btn btn-lg btn-primary btn-glow" data-bs-toggle="modal" data-bs-target="#addClassModal" onclick="resetForm()">
+                    <i class="fas fa-plus me-2"></i>Create New Class
+                </button>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="row mb-5" style="display: none;">
+            <div class="col-12">
+                <div class="empty-state-container text-center py-5">
+                    <i class="fas fa-inbox fa-5x text-muted mb-4"></i>
+                    <h4 class="text-muted">No Classes Yet</h4>
+                    <p class="text-muted mb-4">Create your first class to get started</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Classes Grid -->
+        <div class="row g-4" id="classesGrid">
+            <!-- Classes will be loaded here dynamically -->
+        </div>
+    </div>
+</section>
+
+<!-- Add/Edit Class Modal -->
+<div class="modal fade" id="addClassModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header border-0 bg-light">
+                <h5 class="modal-title fw-bold">
+                    <i class="fas fa-book me-2"></i><span id="modalTitle">Create New Class</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="classForm" name="classForm">
+                    <input type="hidden" id="classId" name="classId" value="">
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-600">
+                            <i class="fas fa-book text-primary me-2"></i>Class Name
+                        </label>
+                        <input type="text" class="form-control input-animated" id="className" placeholder="e.g., Computer Science 101" required />
+                        <small class="text-muted">Enter the name of the class section</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-600">
+                            <i class="fas fa-chalkboard-user text-success me-2"></i>Instructor Name
+                        </label>
+                        <input type="text" class="form-control input-animated" id="instructorName" placeholder="e.g., Dr. Ahmad" required />
+                        <small class="text-muted">Full name of the instructor</small>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-600">
+                                <i class="fas fa-door-open text-info me-2"></i>Room Number
+                            </label>
+                            <input type="text" class="form-control input-animated" id="roomNumber" placeholder="e.g., Lab A-201" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-600">
+                                <i class="fas fa-users text-warning me-2"></i>Capacity
+                            </label>
+                            <input type="number" class="form-control input-animated" id="capacity" placeholder="e.g., 40" min="1" max="500" required />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-600">
+                            <i class="fas fa-calendar text-danger me-2"></i>Schedule
+                        </label>
+                        <input type="text" class="form-control input-animated" id="schedule" placeholder="e.g., Mon & Wed 10:00 AM - 11:30 AM" required />
+                        <small class="text-muted">Class meeting schedule</small>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-600">
+                            <i class="fas fa-palette text-secondary me-2"></i>Class Color Theme
+                        </label>
+                        <div class="color-selector d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input color-option" type="radio" name="color" id="colorBlue" value="blue" checked>
+                                <label class="form-check-label color-label" for="colorBlue">
+                                    <span class="color-dot blue-dot"></span> Blue
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input color-option" type="radio" name="color" id="colorGreen" value="green">
+                                <label class="form-check-label color-label" for="colorGreen">
+                                    <span class="color-dot green-dot"></span> Green
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input color-option" type="radio" name="color" id="colorPurple" value="purple">
+                                <label class="form-check-label color-label" for="colorPurple">
+                                    <span class="color-dot purple-dot"></span> Purple
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0 bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Cancel
+                </button>
+                <button type="button" class="btn btn-primary btn-glow" onclick="saveClass()">
+                    <i class="fas fa-save me-2"></i><span id="submitBtnText">Create Class</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header border-0 bg-danger bg-opacity-10">
+                <h5 class="modal-title fw-bold text-danger">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Delete Class?
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p class="mb-0">Are you sure you want to delete <strong id="deleteClassName"></strong>? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">
+                    <i class="fas fa-trash me-2"></i>Delete Class
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.class-management-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    padding-top: 2rem;
+}
+
+.section-header {
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.divider {
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    margin: 1rem auto;
+    border-radius: 2px;
+}
+
+.btn-glow {
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
+}
+
+.class-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    animation: cardSlideUp 0.6s ease-out backwards;
+    position: relative;
+}
+
+.class-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.class-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.class-header {
+    padding: 1.5rem;
+    color: white;
+    font-weight: 600;
+    position: relative;
+}
+
+.class-header.blue {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.class-header.green {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.class-header.purple {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+}
+
+.class-header h5 {
+    margin: 0;
+    font-size: 1.1rem;
+    word-break: break-word;
+}
+
+.class-body {
+    padding: 1.5rem;
+}
+
+.class-stat {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.2s ease;
+}
+
+.class-stat:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.class-stat:hover {
+    background: #f9f9f9;
+    padding: 0.75rem;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    padding-left: 0.75rem;
+    border-radius: 8px;
+}
+
+.class-stat i {
+    font-size: 1.5rem;
+    min-width: 30px;
+    text-align: center;
+    color: #667eea;
+}
+
+.class-stat div h6 {
+    margin: 0;
+    color: #999;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.class-stat div h4 {
+    margin: 0.3rem 0 0 0;
+    font-weight: 700;
+    color: #333;
+    font-size: 1rem;
+}
+
+.class-stat div p {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.class-footer {
+    padding: 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    background: #f9f9f9;
+    border-top: 1px solid #f0f0f0;
+}
+
+.class-footer .btn {
+    flex: 1;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.class-footer .btn-outline-primary:hover {
+    transform: translateY(-2px);
+}
+
+.class-footer .btn-outline-danger:hover {
+    transform: translateY(-2px);
+}
+
+.modal-content {
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.input-animated {
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.input-animated:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+    background-color: #f9fbff;
+}
+
+.color-selector {
+    flex-wrap: wrap;
+}
+
+.color-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.color-label:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.color-dot {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+
+.blue-dot {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.green-dot {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.purple-dot {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+}
+
+.color-option:checked + .color-label {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.color-option:checked + .color-label .color-dot {
+    transform: scale(1.2);
+}
+
+.empty-state-container {
+    background: white;
+    border-radius: 15px;
+    padding: 3rem 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.form-check-input {
+    width: 1.25em;
+    height: 1.25em;
+    margin-top: 0.25em;
+    accent-color: #667eea;
+}
+
+@keyframes cardSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .class-card {
+        margin-bottom: 1rem;
+    }
+
+    .class-footer {
+        flex-direction: column;
+    }
+
+    .class-footer .btn {
+        width: 100%;
+    }
+
+    .color-selector {
+        justify-content: flex-start;
+    }
+}
+</style>
+
+<script>
+let currentEditingId = null;
+let currentDeletingId = null;
+
+// Load classes on page load
+document.addEventListener('DOMContentLoaded', function() {
+    loadClasses();
+});
+
+async function loadClasses() {
+    try {
+        const response = await fetch('/api/classes');
+        const classes = await response.json();
+        displayClasses(classes);
+    } catch (error) {
+        console.error('Error loading classes:', error);
+    }
+}
+
+function displayClasses(classes) {
+    const grid = document.getElementById('classesGrid');
+    const emptyState = document.getElementById('emptyState');
+
+    if (classes.length === 0) {
+        grid.innerHTML = '';
+        emptyState.style.display = 'block';
+        return;
+    }
+
+    emptyState.style.display = 'none';
+    grid.innerHTML = classes.map((cls, index) => `
+        <div class="col-lg-4 col-md-6" style="animation-delay: ${index * 0.1}s;">
+            <div class="class-card">
+                <div class="class-header ${cls.color}">
+                    <h5>${cls.name}</h5>
+                </div>
+                <div class="class-body">
+                    <div class="class-stat">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h6>Capacity</h6>
+                            <h4>${cls.capacity || 'N/A'}</h4>
+                        </div>
+                    </div>
+                    <div class="class-stat">
+                        <i class="fas fa-chalkboard-user"></i>
+                        <div>
+                            <h6>Instructor</h6>
+                            <p>${cls.instructor || 'N/A'}</p>
+                        </div>
+                    </div>
+                    <div class="class-stat">
+                        <i class="fas fa-door-open"></i>
+                        <div>
+                            <h6>Room</h6>
+                            <p>${cls.room || 'N/A'}</p>
+                        </div>
+                    </div>
+                    <div class="class-stat">
+                        <i class="fas fa-calendar"></i>
+                        <div>
+                            <h6>Schedule</h6>
+                            <p>${cls.schedule || 'N/A'}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="class-footer">
+                    <button class="btn btn-sm btn-outline-primary" onclick="editClass(${cls.id})">
+                        <i class="fas fa-edit me-1"></i>Edit
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteClass(${cls.id}, '${cls.name}')">
+                        <i class="fas fa-trash me-1"></i>Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function resetForm() {
+    document.getElementById('classForm').reset();
+    document.getElementById('classId').value = '';
+    document.getElementById('modalTitle').textContent = 'Create New Class';
+    document.getElementById('submitBtnText').textContent = 'Create Class';
+    currentEditingId = null;
+    document.getElementById('colorBlue').checked = true;
+}
+
+async function editClass(id) {
+    try {
+        const response = await fetch(`/api/classes/${id}`);
+        const cls = await response.json();
+        
+        document.getElementById('classId').value = cls.id;
+        document.getElementById('className').value = cls.name;
+        document.getElementById('instructorName').value = cls.instructor;
+        document.getElementById('roomNumber').value = cls.room;
+        document.getElementById('capacity').value = cls.capacity;
+        document.getElementById('schedule').value = cls.schedule;
+        document.getElementById('color' + cls.color.charAt(0).toUpperCase() + cls.color.slice(1)).checked = true;
+        
+        document.getElementById('modalTitle').textContent = 'Edit Class';
+        document.getElementById('submitBtnText').textContent = 'Update Class';
+        currentEditingId = id;
+        
+        const modal = new bootstrap.Modal(document.getElementById('addClassModal'));
+        modal.show();
+    } catch (error) {
+        console.error('Error loading class:', error);
+        alert('Error loading class details');
+    }
+}
+
+async function saveClass() {
+    const form = document.getElementById('classForm');
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        return;
+    }
+
+    const formData = {
+        name: document.getElementById('className').value,
+        instructor: document.getElementById('instructorName').value,
+        room: document.getElementById('roomNumber').value,
+        schedule: document.getElementById('schedule').value,
+        capacity: document.getElementById('capacity').value,
+        color: document.querySelector('input[name="color"]:checked').value
+    };
+
+    try {
+        let response;
+        if (currentEditingId) {
+            response = await fetch(`/api/classes/${currentEditingId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+        } else {
+            response = await fetch(`/api/classes`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+        }
+
+        const result = await response.json();
+        if (result.success) {
+            bootstrap.Modal.getInstance(document.getElementById('addClassModal')).hide();
+            resetForm();
+            loadClasses();
+            
+            const message = currentEditingId ? 'Class updated successfully!' : 'Class created successfully!';
+            showNotification(message, 'success');
+        } else {
+            alert('Error: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error saving class:', error);
+        alert('Error saving class');
+    }
+}
+
+function deleteClass(id, name) {
+    currentDeletingId = id;
+    document.getElementById('deleteClassName').textContent = name;
+    const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+    modal.show();
+}
+
+async function confirmDelete() {
+    try {
+        const response = await fetch(`/api/classes/${currentDeletingId}`, {
+            method: 'DELETE'
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal')).hide();
+            loadClasses();
+            showNotification('Class deleted successfully!', 'success');
+        } else {
+            alert('Error: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error deleting class:', error);
+        alert('Error deleting class');
+    }
+}
+
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+    notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+    notification.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 5000);
+}
+</script>
+{% endblock %}

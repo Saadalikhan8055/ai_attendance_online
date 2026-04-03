@@ -1,0 +1,818 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="contact-section py-5">
+    <div class="container">
+        <!-- Header -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="section-header text-center mb-5">
+                    <h2 class="display-5 fw-bold text-primary">Contact Us</h2>
+                    <p class="lead text-muted">We'd love to hear from you. Get in touch with us today.</p>
+                    <div class="divider"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Info Cards -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-6">
+                <div class="contact-card">
+                    <div class="contact-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h5 class="fw-bold mt-3">Phone</h5>
+                    <p class="text-muted">+91 9849041919<br>Mon - Fri, 9 AM - 5 PM EST</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="contact-card">
+                    <div class="contact-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h5 class="fw-bold mt-3">Email</h5>
+                    <p class="text-muted">saadalikhan8055@gmail.com</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Contact Form -->
+            <div class="col-lg-6">
+                <div class="form-card premium-form">
+                    <div class="form-header">
+                        <h4 class="fw-bold mb-2">Send us a Message</h4>
+                        <p class="text-muted small">We'll respond within 24 hours</p>
+                    </div>
+                    <form id="contactForm" method="POST" action="{{ url_for('send_contact_message') if 'send_contact_message' in config else '#' }}">
+                        <div class="form-group-wrapper mb-4">
+                            <div class="form-group">
+                                <label class="form-label-premium">
+                                    <i class="fas fa-user"></i>
+                                    <span>Name</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <input type="text" class="form-control input-animated" name="name" placeholder="Your full name" required />
+                                    <div class="input-border"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group-wrapper mb-4">
+                            <div class="form-group">
+                                <label class="form-label-premium">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Email</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <input type="email" class="form-control input-animated" name="email" placeholder="your@email.com" required />
+                                    <div class="input-border"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group-wrapper mb-4">
+                            <div class="form-group">
+                                <label class="form-label-premium">
+                                    <i class="fas fa-list"></i>
+                                    <span>Subject</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <select class="form-select input-animated" name="subject" required>
+                                        <option value="">Select a subject</option>
+                                        <option value="general">General Inquiry</option>
+                                        <option value="support">Technical Support</option>
+                                        <option value="sales">Sales Inquiry</option>
+                                        <option value="feedback">Feedback</option>
+                                        <option value="bug">Report a Bug</option>
+                                        <option value="feature">Feature Request</option>
+                                    </select>
+                                    <div class="input-border"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group-wrapper mb-4">
+                            <div class="form-group">
+                                <label class="form-label-premium">
+                                    <i class="fas fa-building"></i>
+                                    <span>Organization (Optional)</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <input type="text" class="form-control input-animated" name="organization" placeholder="Your organization name" />
+                                    <div class="input-border"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group-wrapper mb-4">
+                            <div class="form-group">
+                                <label class="form-label-premium">
+                                    <i class="fas fa-comment"></i>
+                                    <span>Message</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <textarea class="form-control input-animated" name="message" rows="6" placeholder="Tell us how we can help..." required></textarea>
+                                    <div class="input-border"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-premium w-100">
+                            <span class="btn-premium-text">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </span>
+                            <span class="btn-premium-glow"></span>
+                            <span class="btn-premium-ripple"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Contact Info & Map -->
+            <div class="col-lg-6">
+                <!-- Support Channels -->
+                <div class="info-card mb-4">
+                    <h4 class="fw-bold mb-3">Other Ways to Reach Us</h4>
+                    <div class="support-channel">
+                        <i class="fas fa-headset"></i>
+                        <div>
+                            <h6>Live Chat Support</h6>
+                            <p class="text-muted small">Available 9 AM - 5 PM EST</p>
+                        </div>
+                    </div>
+                    <div class="support-channel">
+                        <i class="fas fa-file-alt"></i>
+                        <div>
+                            <h6>Knowledge Base</h6>
+                            <p class="text-muted small">Browse our documentation</p>
+                        </div>
+                    </div>
+                    <div class="support-channel">
+                        <i class="fas fa-comments"></i>
+                        <div>
+                            <h6>Community Forum</h6>
+                            <p class="text-muted small">Connect with other users</p>
+                        </div>
+                    </div>
+                    <div class="support-channel">
+                        <i class="fas fa-video"></i>
+                        <div>
+                            <h6>Video Tutorials</h6>
+                            <p class="text-muted small">Step-by-step guides on YouTube</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Response Time -->
+                <div class="response-card">
+                    <h5 class="fw-bold mb-3">Response Times</h5>
+                    <div class="response-item">
+                        <div class="response-badge urgent">Urgent</div>
+                        <div>
+                            <h6 class="mb-1">System Down / Critical Issues</h6>
+                            <p class="text-muted small">2-4 hours response</p>
+                        </div>
+                    </div>
+                    <div class="response-item">
+                        <div class="response-badge high">High</div>
+                        <div>
+                            <h6 class="mb-1">Feature Issues / Bugs</h6>
+                            <p class="text-muted small">4-8 hours response</p>
+                        </div>
+                    </div>
+                    <div class="response-item">
+                        <div class="response-badge normal">Normal</div>
+                        <div>
+                            <h6 class="mb-1">General Inquiries</h6>
+                            <p class="text-muted small">24 hours response</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Hours -->
+                <div class="hours-card">
+                    <h5 class="fw-bold mb-3">Business Hours</h5>
+                    <div class="hour-item">
+                        <span>Monday - Friday</span>
+                        <strong>9:00 AM - 5:00 PM EST</strong>
+                    </div>
+                    <div class="hour-item">
+                        <span>Saturday</span>
+                        <strong>10:00 AM - 2:00 PM EST</strong>
+                    </div>
+                    <div class="hour-item">
+                        <span>Sunday</span>
+                        <strong>Closed</strong>
+                    </div>
+                    <div class="alert alert-info mt-3 mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <small>Emergency technical support available 24/7</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="social-section">
+                    <h4 class="fw-bold text-center mb-4">Connect With Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link facebook" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link twitter" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link linkedin" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link instagram" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link youtube" title="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.contact-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+.contact-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: cardSlideUp 0.8s ease-out backwards;
+    transition: all 0.3s ease;
+}
+
+.contact-card:nth-child(1) { animation-delay: 0s; }
+.contact-card:nth-child(2) { animation-delay: 0.1s; }
+.contact-card:nth-child(3) { animation-delay: 0.2s; }
+
+.contact-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.contact-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    margin: 0 auto;
+}
+
+.form-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.premium-form {
+    position: relative;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    overflow: hidden;
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.premium-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+    animation: flowingGradient 3s ease-in-out infinite;
+}
+
+.form-header {
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.form-header h4 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem !important;
+}
+
+.form-header p {
+    font-size: 0.9rem;
+    color: #999;
+}
+
+.form-group-wrapper {
+    position: relative;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-label-premium {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.form-label-premium i {
+    font-size: 1.1rem;
+    color: #667eea;
+    transition: all 0.3s ease;
+}
+
+.form-label-premium:hover i {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-animated {
+    border-radius: 12px;
+    border: 2px solid #e0e7ff;
+    padding: 0.8rem 1.2rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    color: #334155;
+}
+
+.input-animated::placeholder {
+    color: #cbd5e1;
+}
+
+.input-animated:focus {
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1), inset 0 2px 4px rgba(102, 126, 234, 0.05);
+    outline: none;
+}
+
+.input-animated:hover:not(:focus) {
+    border-color: #c7d2fe;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.input-border {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+    border-radius: 2px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.input-animated:focus ~ .input-border {
+    width: 100%;
+}
+
+textarea.input-animated {
+    resize: vertical;
+    min-height: 140px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
+/* Premium Button */
+.btn-premium {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    color: white;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    text-decoration: none;
+    outline: none;
+    border: 2px solid transparent;
+}
+
+.btn-premium-text {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.btn-premium-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent);
+    border-radius: 12px;
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+}
+
+.btn-premium:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4),
+                0 0 30px rgba(240, 147, 251, 0.3);
+}
+
+.btn-premium:hover .btn-premium-glow {
+    opacity: 1;
+    animation: glowPulse 1.5s ease-in-out infinite;
+}
+
+.btn-premium:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+.btn-premium-ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.btn-premium:active .btn-premium-ripple {
+    animation: rippleEffect 0.6s ease-out;
+}
+
+/* Success Animation */
+.btn-premium.success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+}
+
+.btn-premium.success .btn-premium-text {
+    animation: successPulse 0.6s ease-out;
+}
+
+.info-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: slideInRight 0.8s ease-out;
+}
+
+.support-channel {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.support-channel:last-child {
+    border-bottom: none;
+}
+
+.support-channel i {
+    font-size: 1.5rem;
+    color: #667eea;
+    margin-top: 0.25rem;
+}
+
+.support-channel h6 {
+    margin: 0 0 0.25rem 0;
+    font-weight: 600;
+}
+
+.response-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.response-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.response-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.response-badge.urgent {
+    background: #fecaca;
+    color: #991b1b;
+}
+
+.response-badge.high {
+    background: #fed7aa;
+    color: #92400e;
+}
+
+.response-badge.normal {
+    background: #bfdbfe;
+    color: #1e3a8a;
+}
+
+.response-item h6 {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.hours-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.hour-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.hour-item:last-child {
+    border-bottom: none;
+}
+
+.hour-item span {
+    color: #666;
+    font-weight: 500;
+}
+
+.hour-item strong {
+    color: #667eea;
+}
+
+.social-section {
+    background: white;
+    border-radius: 15px;
+    padding: 3rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: slideInUp 0.8s ease-out;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.social-link {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-link.facebook {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.social-link.twitter {
+    background: linear-gradient(135deg, #00acee 0%, #0084b4 100%);
+}
+
+.social-link.linkedin {
+    background: linear-gradient(135deg, #0077b5 0%, #005885 100%);
+}
+
+.social-link.instagram {
+    background: linear-gradient(135deg, #f09433 0%, #e6683c 50%, #dc2743 100%);
+}
+
+.social-link.youtube {
+    background: linear-gradient(135deg, #c4302b 0%, #882419 100%);
+}
+
+.social-link:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Keyframe Animations */
+@keyframes flowingGradient {
+    0%, 100% {
+        background-position: 0% center;
+    }
+    50% {
+        background-position: 100% center;
+    }
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+    }
+}
+
+@keyframes rippleEffect {
+    to {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+}
+
+@keyframes successPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .social-links {
+        flex-wrap: wrap;
+    }
+}
+</style>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const btn = this.querySelector('.btn-premium');
+    const originalText = btn.innerHTML;
+    
+    // Add loading state
+    btn.innerHTML = '<span class="btn-premium-text"><i class="fas fa-spinner fa-spin me-2"></i>Sending...</span>';
+    btn.disabled = true;
+    
+    // Simulate form submission
+    setTimeout(() => {
+        // Show success animation
+        btn.classList.add('success');
+        btn.innerHTML = '<span class="btn-premium-text"><i class="fas fa-check me-2"></i>Message Sent!</span>';
+        
+        // Show notification
+        showSuccessNotification();
+        
+        // Reset form
+        setTimeout(() => {
+            this.reset();
+            btn.classList.remove('success');
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }, 2000);
+    }, 1500);
+});
+
+function showSuccessNotification() {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 25px;
+        right: 25px;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        padding: 1.2rem 1.8rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        font-weight: 600;
+        z-index: 5000;
+        animation: slideInRight 0.4s ease-out;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    `;
+    notification.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! We will get back to you soon.';
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.4s ease-out forwards';
+        setTimeout(() => notification.remove(), 400);
+    }, 3000);
+}
+
+// Add slideOutRight animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideOutRight {
+        to {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+    }
+    
+    .form-group-wrapper input:focus ~ .input-border,
+    .form-group-wrapper select:focus ~ .input-border,
+    .form-group-wrapper textarea:focus ~ .input-border {
+        width: 100%;
+    }
+`;
+document.head.appendChild(style);
+</script>
+{% endblock %}
