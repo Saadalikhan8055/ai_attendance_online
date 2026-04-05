@@ -116,7 +116,9 @@ Change this password immediately after first login.
 
 ## Deployment
 
-Render deployment is configured in [render.yaml](render.yaml). The Flask app runs with Gunicorn in production, and the local development entry point remains [app.py](app.py).
+For VPS deployment with Docker, follow [VPS_DEPLOYMENT.md](VPS_DEPLOYMENT.md). The Docker Compose stack is defined in [docker-compose.vps.yml](docker-compose.vps.yml).
+
+For local development, run:
 
 ```bash
 python app.py
