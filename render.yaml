@@ -3,7 +3,7 @@ services:
     name: ai-attendance-app
     runtime: python
     plan: free
-    buildCommand: pip install --upgrade pip setuptools wheel && pip install -r requirements.txt
+    buildCommand: PIP_NO_CACHE_DIR=1 CMAKE_BUILD_PARALLEL_LEVEL=1 MAKEFLAGS=-j1 pip install --upgrade pip setuptools wheel && PIP_NO_CACHE_DIR=1 CMAKE_BUILD_PARALLEL_LEVEL=1 MAKEFLAGS=-j1 pip install -r requirements.txt
     startCommand: python db_init.py && gunicorn app:app
     healthCheckPath: /health
     autoDeployTrigger: commit
