@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_SECRET", "supersecretkey")
+app.secret_key = os.getenv("FLASK_SECRET", os.getenv("SECRET_KEY", "supersecretkey"))
 engine = get_engine()
 
 # Initialize Email
@@ -37,6 +37,11 @@ def teardown_request_func(exception=None):
 login_manager = LoginManager()
 login_manager.login_view = "login"
 login_manager.init_app(app)
+
+
+@app.route("/health")
+def health():
+    return {"status": "ok"}, 200
 
 # Simple User class for Flask-Login
 class UserLogin(UserMixin):

@@ -35,7 +35,6 @@ AI Attendance Online is a Flask-based attendance management system that uses fac
 - `db_init.py` - database initialization and default admin creation
 - `templates/` - HTML templates
 - `static/` - CSS, JavaScript, and uploaded files
-- `docker/` - Docker and Nginx configuration
 
 ## Prerequisites
 
@@ -117,19 +116,16 @@ Change this password immediately after first login.
 
 ## Deployment
 
-The repository includes deployment guidance for Render in [DEPLOYMENT.md](DEPLOYMENT.md). The app is configured to run with Gunicorn in production.
-
-For a typical Render deployment:
+Render deployment is configured in [render.yaml](render.yaml). The Flask app runs with Gunicorn in production, and the local development entry point remains [app.py](app.py).
 
 ```bash
-gunicorn app:app
+python app.py
 ```
 
 ## Notes
 
 - Face recognition is CPU-intensive and works better on paid instances than on free-tier hosts.
 - Uploaded images are stored locally by default, so consider persistent object storage for production.
-- If you are using the Docker setup, review the files in `docker/` and `docker-compose.yml` for the full multi-service stack.
 
 ## Troubleshooting
 

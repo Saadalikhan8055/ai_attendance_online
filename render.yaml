@@ -1,11 +1,12 @@
 services:
   - type: web
     name: ai-attendance-app
-    env: python
+    runtime: docker
     plan: free
-    repo: https://github.com/YOUR_USERNAME/ai_attendance_online
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    dockerfilePath: Dockerfile
+    preDeployCommand: python db_init.py
+    healthCheckPath: /health
+    autoDeployTrigger: commit
     envVars:
       - key: FLASK_ENV
         value: production
@@ -16,9 +17,6 @@ services:
           name: ai-attendance-db
           property: connectionString
 
-  - type: pserv
-    name: ai-attendance-db
+databases:
+  - name: ai-attendance-db
     plan: free
-    ipAllowList:
-      - source: 0.0.0.0/0
-        description: Allow all

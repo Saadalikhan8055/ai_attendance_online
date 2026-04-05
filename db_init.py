@@ -1,7 +1,4 @@
 from models import Base, get_engine, get_session, User
-from sqlalchemy_utils import database_exists, create_database
-from sqlalchemy import inspect
-import os
 
 def init_db():
     engine = get_engine()

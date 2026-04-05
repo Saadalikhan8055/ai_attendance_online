@@ -34,4 +34,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
     CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:5000/health').read()"
 
 # Run application with Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "--worker-class", "gevent", "--max-requests", "1000", "--max-requests-jitter", "50", "--timeout", "30", "app:app"]
+CMD gunicorn --bind 0.0.0.0:${PORT:-5000} --workers 4 --worker-class gevent --max-requests 1000 --max-requests-jitter 50 --timeout 30 app:app
