@@ -4,7 +4,6 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: Dockerfile
-    preDeployCommand: python db_init.py
     healthCheckPath: /health
     autoDeployTrigger: commit
     envVars:
