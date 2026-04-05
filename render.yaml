@@ -1,12 +1,15 @@
 services:
   - type: web
     name: ai-attendance-app
-    runtime: docker
+    runtime: python
     plan: free
-    dockerfilePath: Dockerfile
+    buildCommand: pip install --upgrade pip setuptools wheel && pip install -r requirements.txt
+    startCommand: python db_init.py && gunicorn app:app
     healthCheckPath: /health
     autoDeployTrigger: commit
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.7
       - key: FLASK_ENV
         value: production
       - key: FLASK_SECRET
